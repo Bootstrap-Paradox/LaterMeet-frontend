@@ -80,7 +80,7 @@ function useFetch({ url = "", authorized = false, superDispatch = null }) {
                         }
                     }
                 }
-                setError(err.toString().split(" ").slice(1).join(" "))
+                setError({ "error": err.toString().split(" ").slice(1).join(" "), "data": err.response.data })
             })
             return () => {
                 source.cancel()

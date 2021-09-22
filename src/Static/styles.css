@@ -1,0 +1,47 @@
+.nav-bar {
+  width: 100%;
+  margin: 0;
+  color: #2249f5;
+  background-color: white;
+  -webkit-box-shadow: 0px 3px 32px 0 rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 3px 32px 0 rgba(0, 0, 0, 0.25);
+  height: 67px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-bottom-left-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
+}
+
+.nav-bar h1 {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+.nav-bar .btn {
+  position: absolute;
+  right: 10px;
+  color: black;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+#root {
+  background-color: #FAFAFA;
+  height: 100vh;
+}
+
+.boundary {
+  padding: 16px 29px;
+}
+/*# sourceMappingURL=styles.css.map */

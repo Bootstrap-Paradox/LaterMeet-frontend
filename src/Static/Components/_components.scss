@@ -1,0 +1,28 @@
+.nav-bar{
+    width: 100%;
+    margin: 0;
+    // padding: 2.9rem auto auto auto; 
+    color: getColor(primary);
+    background-color: white;
+    box-shadow: $shadow;
+    height: 67px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    $radius: 0.6rem;
+    border-bottom-left-radius: $radius;
+    border-bottom-right-radius: $radius;
+
+    h1{
+        margin: 0;
+        font-size: 2.2rem;
+        // padding-left: 29px;
+    }
+    .btn{
+        position: absolute;
+        right: 10px;
+        color: black;
+    }
+}

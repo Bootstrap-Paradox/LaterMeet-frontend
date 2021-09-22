@@ -1,0 +1,13 @@
+
+$shadow: 0px 3px 32px 0 rgba(0,0,0,0.25);
+
+$colors: (
+    primary: rgba(34, 73, 245, 1),
+    secondary: rgba(228, 0, 102, 1),
+    complementary: rgba(234, 196, 53, 1),
+    text:rgba(28, 16, 24, 1),
+);
+
+@function getColor($color){
+    @return map-get($map: $colors, $key: $color );
+}
