@@ -50,27 +50,42 @@ const JoinPage = () => {
             {meetingError && <p>{meetingError.data.msg}</p>}
             {meetingData &&
                 <div style={{ textAlign: "center" }} className="boundary">
-                    <h1>{meetingData && meetingData["meeting_name"]}</h1>
-                    <p>{meetingData && meetingData["meeting_description"]}</p>
-                    {meetingData &&
-                        <video width="320" height="240" id="video-component" controls autoPlay={true}>
-                            <source src={meetingData["meeting_url"]} type="video/mp4" />
-                            <p>Video Not Supported</p>
-                        </video>
-
-                    }
+                    <h1 style={{ marginTop: "57px" }}>{meetingData && meetingData["meeting_name"]}</h1>
+                    {meetingData && <VideoElement src_url={meetingData["meeting_url"]} />}
                     <button onClick={() => {
                         videoElement.currentTime = (new Date().getTime() - meetingStartTime) / 1000;
                         videoElement.play()
-                        console.log(meetingStartTime);
-                        console.log("Js time below");
-
-                        console.log(new Date().getTime());
+                        // console.log(meetingStartTime);
 
                     }} >UnPause</button>
+                    <Description content={meetingData["meeting_description"]} />
                 </div>
             }
         </>
+    )
+}
+
+const Description = ({ content = "" }) => {
+    return (
+        <>
+            {content !== "" &&
+                <div className="description-card" >
+                    <p>
+                        {content}
+                    </p>
+
+                </div>
+            }
+        </>
+    )
+}
+
+const VideoElement = ({ src_url, type = "video/mp4" }) => {
+    return (
+        <video width="320" height="240" id="video-component" controls onWaiting={() => { console.log("hey") }} onTimeUpdate={() => { }} autoPlay={true} >
+            <source src={src_url} type={type} />
+            <p>Something Went Wrong</p>
+        </video>
     )
 }
 

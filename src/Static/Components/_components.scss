@@ -26,3 +26,22 @@
         color: black;
     }
 }
+
+#video-component{
+    border-radius: 8px;
+}
+
+.description-card{
+    // width: 100%;
+    height: fit-content;
+    padding: 66px 24px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    background-color: getColor(secondary);
+    box-shadow: $shadow;
+    color: white;
+    border-radius: 8px;
+    margin-top: 1.3rem;
+    font-weight: bold;
+}
