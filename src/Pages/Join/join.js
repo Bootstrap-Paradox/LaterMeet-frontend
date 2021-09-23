@@ -3,15 +3,7 @@ import { useParams } from 'react-router';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 
 import useFetch from '../../Hooks/useFetch';
-
-// const Description = ({ description }) => {
-//     return (
-//         <div className="description-card">
-//             <p>{description}</p>
-//         </div>
-//     )
-// }
-
+import BottomBar from '../../Components/bottomBar';
 
 
 const JoinPage = () => {
@@ -22,17 +14,39 @@ const JoinPage = () => {
     const { meeting_id } = useParams();
     const { data: meetingData, loading: meetingLoading, error: meetingError } = useFetch({ url: `http://0.0.0.0:8001/meetings/join/${meeting_id}` })
 
+    const [inter, setInter] = useState(true);
 
-    // meetingData && setInterval(() => {
-    //     if (videoElement) {
-    //         if (meetingStartTime + (videoElement.duration * 1000) <= new Date().getTime()) {
-    //             // The Meeting Has Ended
-    //             if (videoElement) videoElement.pause();
+    var checkLoop = meetingData && videoElement && setInterval(() => {
+        if (meetingData && videoElement) {
+            if (videoElement.currentTime >= videoElement.duration) {
+                clearInterval(checkLoop)
+            }
+            if (videoElement && videoElement.currentTime <= videoElement.duration) {
+                let currentTime = new Date().getTime()
+                let currentDiff = (currentTime - meetingStartTime) / 1000;
+                if (currentDiff < 0) {
+                    videoElement.pause()
+                    // TODO: Actions
+                }
+                else if (videoElement.paused) {
+                    videoElement.play()
 
-    //         }
+                }
+                // if (meetingStartTime + (videoElement.duration * 1000) <= new Date().getTime()) {
+                //     // The Meeting Has Ended
+                //     if (videoElement) videoElement.pause();
 
-    //     }
-    // }, 60 * 1000)
+                // }
+
+                if ((videoElement.currentTime > (currentDiff + 10) || videoElement.currentTime < (currentDiff - 10)) && videoElement.currentTime < videoElement.duration) {
+                    videoElement.currentTime = currentDiff;
+                    videoElement.play()
+                }
+
+            }
+
+        }
+    }, 1 * 1000)
 
     useEffect(() => {
         setVideoElement(document.getElementById("video-component"));
@@ -51,17 +65,20 @@ const JoinPage = () => {
             {meetingData &&
                 <div style={{ textAlign: "center" }} className="boundary">
                     <h1 style={{ marginTop: "57px" }}>{meetingData && meetingData["meeting_name"]}</h1>
-                    {meetingData && <VideoElement src_url={meetingData["meeting_url"]} />}
-                    <button onClick={() => {
-                        videoElement.currentTime = (new Date().getTime() - meetingStartTime) / 1000;
-                        videoElement.play()
-                        // console.log(meetingStartTime);
-
-                    }} >UnPause</button>
+                    <VideoElement src_url={meetingData["meeting_url"]} />
                     <Description content={meetingData["meeting_description"]} />
                 </div>
             }
+            <BottomBar data={<JoinAudio videoElement={videoElement} />} />
         </>
+    )
+}
+
+const JoinAudio = (props) => {
+    return (
+        <button className="btn btn-primary right" onClick={() => {
+            props.videoElement.muted = false
+        }} >Join Audio</button>
     )
 }
 
@@ -82,7 +99,7 @@ const Description = ({ content = "" }) => {
 
 const VideoElement = ({ src_url, type = "video/mp4" }) => {
     return (
-        <video width="320" height="240" id="video-component" controls onWaiting={() => { console.log("hey") }} onTimeUpdate={() => { }} autoPlay={true} >
+        <video width="320" height="auto" id="video-component" controls muted="muted" onWaiting={() => { console.log("hey") }} onTimeUpdate={() => { }} autoPlay={true} >
             <source src={src_url} type={type} />
             <p>Something Went Wrong</p>
         </video>

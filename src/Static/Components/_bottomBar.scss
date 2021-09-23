@@ -1,0 +1,21 @@
+
+.bottom-bar{
+    width: 100vw;
+    overflow-y: none;
+    box-shadow: $shadow;
+    height:51px;
+    display: flex;
+    align-items: center;
+    position:fixed;
+    bottom: 0;
+
+    .right, .left{
+        position: absolute;
+    }
+    .right{
+        right: 0.2rem;
+    }
+    .left{
+        left: 0.2rem;
+    }
+}

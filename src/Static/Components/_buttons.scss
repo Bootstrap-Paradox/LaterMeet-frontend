@@ -1,0 +1,22 @@
+
+.btn{
+    padding: 8px;
+    margin: 8px;
+    border-radius: 4px;
+    height: 32px;
+    border:none;
+    color:white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    box-shadow: $shadow;
+}
+
+.btn-long{
+    min-width: 160px;
+}
+
+@each $name, $color in $colors{
+    .btn-#{$name}{
+        background-color: $color;
+    }
+}
