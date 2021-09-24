@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import NavBar from '../../Components/NavBar';
 import axios from 'axios';
 import { useHistory } from 'react-router';
+import { setCookie } from '../../Logics/cookies';
 
 const Authentication = (
     {
@@ -37,6 +38,7 @@ const Authentication = (
             reqData,
             { validateStatus: false },
         ).then((res) => {
+            if (res.data.hasOwnProperty("access_token")) setCookie("access_token", res.data["access_token"])
             history.push("/")
             return res.data
         }).catch((err) => {
