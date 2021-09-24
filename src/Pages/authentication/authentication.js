@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../../Components/NavBar';
+import axios from 'axios';
+import { useHistory } from 'react-router';
 
 const Authentication = (
     {
         title = "Auth",
         description = "",
         inputs = null,
+        apiEndpoint = ""
     }
 ) => {
+
+    const history = useHistory();
 
     if (!inputs) {
         throw new Error("Error")
@@ -15,6 +20,29 @@ const Authentication = (
 
     const [reqData, setReqData] = useState({});
     console.log(reqData)
+
+    async function onHandleSubmit(e) {
+        if ((reqData.hasOwnProperty("password") && reqData.hasOwnProperty("confirmPassword")) && (
+            reqData["password"] !== reqData["confirmPassword"] || reqData["password"] === "" || reqData["confirmPassword"] === ""
+        )) {
+            // do Something to abort Auth
+            return false
+        }
+
+        await axios.post(
+            `http://0.0.0.0:8001/${apiEndpoint}`,
+            reqData,
+            { validateStatus: false },
+        ).then((res) => {
+            history.push("/")
+            return res.data
+        }).catch((err) => {
+            return err.response.status
+        })
+
+
+
+    }
 
     return (
         <>
@@ -65,7 +93,11 @@ const Authentication = (
                             </div>
                         )
                     })}
-                    <button className="btn btn-primary btn-long" onClick={(e) => { e.preventDefault() }}>Sign Up</button>
+                    <button onClick={(e) => {
+                        e.preventDefault()
+                        const output = onHandleSubmit()
+                        console.log(output)
+                    }} className="btn btn-primary btn-long">Sign Up</button>
                 </form>
             </section>
         </>
