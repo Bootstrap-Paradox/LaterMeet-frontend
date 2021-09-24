@@ -30,7 +30,6 @@ const JoinPage = () => {
                 }
                 else if (videoElement.paused) {
                     videoElement.play()
-
                 }
                 // if (meetingStartTime + (videoElement.duration * 1000) <= new Date().getTime()) {
                 //     // The Meeting Has Ended
