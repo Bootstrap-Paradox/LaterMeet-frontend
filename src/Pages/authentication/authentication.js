@@ -22,6 +22,7 @@ const Authentication = (
     console.log(reqData)
 
     async function onHandleSubmit(e) {
+        e.preventDefault()
         if ((reqData.hasOwnProperty("password") && reqData.hasOwnProperty("confirmPassword")) && (
             reqData["password"] !== reqData["confirmPassword"] || reqData["password"] === "" || reqData["confirmPassword"] === ""
         )) {
@@ -51,7 +52,7 @@ const Authentication = (
             <p className="description">{description}</p>
 
             <section className="inputs">
-                <form action="#" method="post">
+                <form action="" method="post">
                     {Object.entries(inputs).map(function Input([key, data], index) {
                         const localValue = data.hasOwnProperty("localValue");
 
@@ -93,11 +94,7 @@ const Authentication = (
                             </div>
                         )
                     })}
-                    <button onClick={(e) => {
-                        e.preventDefault()
-                        const output = onHandleSubmit()
-                        console.log(output)
-                    }} className="btn btn-primary btn-long">Sign Up</button>
+                    <button onClick={onHandleSubmit} className="btn btn-primary btn-long">Sign Up</button>
                 </form>
             </section>
         </>
