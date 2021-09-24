@@ -20,7 +20,6 @@ const Authentication = (
     }
 
     const [reqData, setReqData] = useState({});
-    console.log(reqData)
 
     async function onHandleSubmit(e) {
         e.preventDefault()
@@ -36,12 +35,12 @@ const Authentication = (
         await axios.post(
             `http://0.0.0.0:8001/${apiEndpoint}`,
             reqData,
-            { validateStatus: false },
-        ).then((res) => {
-            if (res.data.hasOwnProperty("access_token")) setCookie("access_token", res.data["access_token"])
+            // { validateStatus: false },
+        ).then(res => {
+            if (res.data.hasOwnProperty("access_token")) { console.log("Token set"); setCookie("access_token", res.data["access_token"]) }
             history.push("/")
             return res.data
-        }).catch((err) => {
+        }).catch(err => {
             return err.response.status
         })
 

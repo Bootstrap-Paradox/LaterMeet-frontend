@@ -38,7 +38,7 @@ function App() {
           />
         </Route>
         <Route path="/login">
-          <Authentication title="Login" description="Participants have been waiting for you" apiEndpoint="" inputs={
+          <Authentication title="Login" description="Participants have been waiting for you" apiEndpoint="login" inputs={
             {
               "Email": {
                 name: "email",
