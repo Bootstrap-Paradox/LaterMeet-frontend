@@ -30,6 +30,8 @@ const Authentication = (
             return false
         }
 
+        if (reqData.hasOwnProperty("password") && reqData["password"] === "") return false
+
         await axios.post(
             `http://0.0.0.0:8001/${apiEndpoint}`,
             reqData,

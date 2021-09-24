@@ -18,7 +18,7 @@ function App() {
           <JoinPage />
         </Route>
         <Route path="/signup">
-          <Authentication title="SignUp" description="Accompany Audience even while away" inputs={
+          <Authentication title="SignUp" description="Accompany Audience even while away" apiEndpoint="signup" inputs={
             {
               "Email": {
                 type: "text",
@@ -36,6 +36,20 @@ function App() {
             }
           }
           />
+        </Route>
+        <Route path="/login">
+          <Authentication title="Login" description="Participants have been waiting for you" apiEndpoint="" inputs={
+            {
+              "Email": {
+                name: "email",
+                localValue: [useLocalStorage, "email", ""],
+              },
+              "Password": {
+                name: "password",
+                type: "password"
+              }
+            }
+          } />
         </Route>
       </Switch>
     </Router>
