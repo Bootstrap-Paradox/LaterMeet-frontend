@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../../Components/NavBar';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { setCookie } from '../../Logics/cookies';
 
@@ -38,7 +39,8 @@ const Authentication = (
             // { validateStatus: false },
         ).then(res => {
             if (res.data.hasOwnProperty("access_token")) { console.log("Token set"); setCookie("access_token", res.data["access_token"]) }
-            history.push("/")
+            if (apiEndpoint === "login") history.push("/")
+            // else history.push("") TODO: Enter Code
             return res.data
         }).catch(err => {
             return err.response.status
@@ -98,6 +100,12 @@ const Authentication = (
                         )
                     })}
                     <button onClick={onHandleSubmit} className="btn btn-primary btn-long">Sign Up</button>
+
+                    <p>{
+                        apiEndpoint === "login" ?
+                            <span>Not a user ? <a href="/signup">SignUp</a> </span> :
+                            <span>Aready a user? <a href="/login" >Login</a></span>
+                    }</p>
                 </form>
             </section>
         </>

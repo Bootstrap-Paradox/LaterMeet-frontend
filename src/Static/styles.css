@@ -89,9 +89,9 @@
   font-size: 1rem;
   border-radius: 0.6rem;
   border: 1px solid #ccc;
-  padding-left: 1.7rem;
+  padding-left: 1rem;
   font-weight: bold;
-  width: auto;
+  width: 280px;
   height: 43px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
