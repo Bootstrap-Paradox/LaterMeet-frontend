@@ -28,6 +28,7 @@
         position: absolute;
         right: 10px;
         color: black;
+        box-shadow: none;
     }
 }
 
@@ -51,3 +52,57 @@
     font-weight: bold;
 }
 
+.profile{
+    border-radius: 50%;
+    width: 42px;
+    aspect-ratio: 1/1;
+    border: #D8D8D8 solid 1px;
+    
+}
+
+.meeting-display{
+    // margin-top: 4rem;
+    padding: 1.1em;
+
+    .greetings{
+        height: 90px;
+        display: grid;
+        grid-template-columns: 1fr 50px;
+        align-items: center;
+        border-bottom: #D8D8D8 solid 1px;
+        margin: 0 -1.1em;
+        padding: 0 1.1rem;
+        margin-bottom: 3rem;
+
+        &>*{
+            font-size: 30px;
+        }
+        span{
+            color: getColor(secondary);
+            font-size: inherit;
+        }
+        
+    }
+
+    span{
+        font-size: 14px;
+        font-weight: bold;
+    }
+    
+    .display-tile{
+        box-shadow: $shadow;
+        border-radius: 8px;
+
+        margin-top: 0.9rem;
+        height: 48px;
+        display: grid;
+        grid-template-columns: 1fr 35px;
+        align-items: center;
+        padding: 0 1rem;
+
+        &>*{
+            font-size: 1rem;
+            font-weight: bold;
+        }
+    }
+}

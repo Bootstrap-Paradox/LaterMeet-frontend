@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 // import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { getCookie } from '../Logics/cookies';
 
 
 // function useMountEffect(func, deps) {
@@ -39,18 +40,19 @@ function useFetch({ url = "", authorized = false, superDispatch = null }) {
 
         async function fetchOperation({ url = "" }) {
 
-            // let auth_headers = {}
+            let auth_headers = {}
 
-            // const access_token = getCookie("access_token")
-            // if (access_token) {
-            //     auth_headers["authorization"] = `Bearer ${access_token}`;
-            // }
+            const access_token = getCookie("access_token")
+            if (access_token) {
+                auth_headers["authorization"] = `Bearer ${access_token}`;
+            }
 
             const source = axios.CancelToken.source()
 
             axios({
                 method: "get",
                 url: url,
+                headers: auth_headers,
                 CancelToken: source.token,
             }).then(res => {
                 const newData = res.data

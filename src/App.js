@@ -2,6 +2,7 @@ import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import NavBar from './Components/NavBar';
 import useLocalStorage from './Hooks/useLocalStorage';
 import Authentication from './Pages/authentication/authentication';
+import MeetingDisplay from './Pages/dashboard/meetingsDisplay';
 import JoinPage from './Pages/Join/join';
 import "./Static/styles.css";
 
@@ -16,6 +17,10 @@ function App() {
         <Route path="/jn/:meeting_id" exact >
           <NavBar />
           <JoinPage />
+        </Route>
+        <Route path="/d/h" >
+          <NavBar />
+          <MeetingDisplay />
         </Route>
         <Route path="/signup">
           <Authentication title="SignUp" description="Accompany Audience even while away" apiEndpoint="signup" inputs={
