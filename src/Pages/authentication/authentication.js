@@ -101,7 +101,7 @@ const Authentication = (
                     })}
                     <button onClick={onHandleSubmit} className="btn btn-primary btn-long">Sign Up</button>
 
-                    <p>{
+                    <p className="switch">{
                         apiEndpoint === "login" ?
                             <span>Not a user ? <a href="/signup">SignUp</a> </span> :
                             <span>Aready a user? <a href="/login" >Login</a></span>

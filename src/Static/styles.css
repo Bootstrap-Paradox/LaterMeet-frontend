@@ -12,6 +12,15 @@
   color: #67415A;
 }
 
+.switch {
+  margin-top: 1.6rem;
+}
+
+.switch a {
+  color: royalblue;
+  text-decoration: none;
+}
+
 .inputs {
   position: absolute;
   top: 40%;
