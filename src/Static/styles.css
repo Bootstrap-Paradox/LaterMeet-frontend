@@ -308,6 +308,68 @@
   font-weight: bold;
 }
 
+.light-tip {
+  color: #D8D8D8;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.meeting-view {
+  text-align: center;
+  padding-top: 1.6em;
+}
+
+.meeting-view .title {
+  font-size: 1.8rem;
+  margin: 0 2rem;
+  margin-bottom: 2rem;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meeting-view .view-box {
+  margin-bottom: 2rem;
+}
+
+.meeting-view .view-box h5 {
+  text-align: start;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  color: #e40066;
+}
+
+.meeting-view .view-box p {
+  margin: 1.7rem 0;
+  font-weight: 500;
+}
+
+.meeting-view .view-box .box-tile {
+  height: 44px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.box, .meeting-view .view-box .box-tile {
+  border-radius: 8px;
+  border: #D8D8D8 solid 1px;
+  margin: 0.8rem 1.6rem;
+  background-color: white;
+  position: relative;
+}
+
 * {
   padding: 0;
   margin: 0;
