@@ -33,7 +33,7 @@ const Authentication = (
 
         if (reqData.hasOwnProperty("password") && reqData["password"] === "") return false
 
-        await axios.post(
+        axios.post(
             `http://0.0.0.0:8001/${apiEndpoint}`,
             reqData,
             // { validateStatus: false },
@@ -43,7 +43,7 @@ const Authentication = (
             // else history.push("") TODO: Enter Code
             return res.data
         }).catch(err => {
-            return err.response.status
+            return false
         })
 
 
