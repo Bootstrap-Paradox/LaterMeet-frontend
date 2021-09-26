@@ -7,6 +7,8 @@ import MeetingDisplay from './Pages/dashboard/meetingsDisplay';
 import JoinPage from './Pages/Join/join';
 import "./Static/styles.css";
 
+import DashboardHome from './Pages/dashboard/dashboardHome';
+
 function App() {
   return (
     <Router>
@@ -19,11 +21,7 @@ function App() {
           <NavBar />
           <JoinPage />
         </Route>
-        <Route path="/d/h" >
-          <NavBar />
-          <MeetingDisplay />
-          <BottomBar />
-        </Route>
+        <Route path="/d" component={DashboardHome} />
         <Route path="/signup">
           <Authentication title="SignUp" description="Accompany Audience even while away" apiEndpoint="signup" inputs={
             {
