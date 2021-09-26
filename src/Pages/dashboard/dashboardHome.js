@@ -2,6 +2,7 @@ import React, { useReducer, useContext, createContext } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import BottomBar from '../../Components/bottomBar';
 import NavBar from '../../Components/NavBar';
+import MeetingEdit from './meetingEdit';
 import MeetingDisplay from './meetingsDisplay';
 import MeetingView from './meetingView';
 
@@ -45,7 +46,19 @@ export default ({ match }) => {
                         <MeetingView />
                         <BottomBar />
                     </Route>
+                    <Route path={`${match.path}/edit`}>
+                        <NavBar />
+                        <MeetingEdit />
+                        <BottomBar />
+
+                    </Route>
+                    <Route path={`${match.path}/new`}>
+                        <NavBar />
+                        <MeetingEdit />
+                        <BottomBar />
+                    </Route>
                 </Switch>
+
             </Router>
         </SuperContext.Provider>
     )
