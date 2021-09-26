@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import useLocalStorage from '../../Hooks/useLocalStorage';
+import { SuperContext } from './dashboardHome';
 
-const MeetingView = ({ meetingData }) => {
+const MeetingView = () => {
+
+    const { superState, superDispatch } = useContext(SuperContext)
+
+    let meetingData = superState.meetingData;
+
+
+
 
     return (
         <>
