@@ -30,6 +30,7 @@ const MeetingDisplay = () => {
                             )
                         })}
                     </section>
+                    <button className="btn btn-secondary btn-long-xl">New Meeting</button>
                 </section>
             }
         </>

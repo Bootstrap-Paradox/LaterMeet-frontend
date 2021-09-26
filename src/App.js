@@ -1,4 +1,5 @@
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import BottomBar from './Components/bottomBar';
 import NavBar from './Components/NavBar';
 import useLocalStorage from './Hooks/useLocalStorage';
 import Authentication from './Pages/authentication/authentication';
@@ -21,6 +22,7 @@ function App() {
         <Route path="/d/h" >
           <NavBar />
           <MeetingDisplay />
+          <BottomBar />
         </Route>
         <Route path="/signup">
           <Authentication title="SignUp" description="Accompany Audience even while away" apiEndpoint="signup" inputs={

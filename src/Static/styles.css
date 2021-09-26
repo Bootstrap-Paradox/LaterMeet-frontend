@@ -144,6 +144,13 @@
   background-color: #1c1018;
 }
 
+.btn-long-xl {
+  margin: auto;
+  min-width: 90%;
+  font-size: 20px;
+  height: 42px;
+}
+
 .bottom-bar {
   width: 100vw;
   overflow-y: none;
@@ -242,6 +249,13 @@
 
 .meeting-display {
   padding: 1.1em;
+  height: 90%;
+}
+
+.meeting-display button {
+  margin-top: 2rem;
+  position: fixed;
+  bottom: 10;
 }
 
 .meeting-display .greetings {

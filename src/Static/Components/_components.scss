@@ -60,9 +60,19 @@
     
 }
 
+
 .meeting-display{
     // margin-top: 4rem;
     padding: 1.1em;
+    height: 90%;
+    // position: relative;
+
+    button{
+        margin-top: 2rem;
+        position:fixed;
+        bottom: 10;
+    }
+    
 
     .greetings{
         height: 90px;
