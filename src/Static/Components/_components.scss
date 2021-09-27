@@ -125,6 +125,11 @@
     transform: translate(-50%, -50%);
 }
 
+.meeting-edit{
+    margin-top:2rem;
+    @extend .meeting-view;
+}
+
 .meeting-view{
     text-align: center;
     padding-top: 1.6em;
@@ -139,6 +144,10 @@
 
     }
 
+    .form-label{
+        color: getColor(secondary);
+    }
+
     .view-box{
         margin-bottom: 2rem;
 
@@ -148,7 +157,7 @@
             margin-top: 1rem;
             color: getColor(secondary);
         }
-        p{
+        .data{
             margin: 1.7rem 0;
             font-weight: 500;
         }
@@ -167,10 +176,14 @@
 }
 
 .box{
-    border-radius: 8px;
-    border: #D8D8D8 solid 1px;
     // min-height: 3rem;
     margin: 0.8rem 1.6rem;
-    background-color: white;
+    @extend .plain-box;
+}
+.plain-box{
+    border-radius: 8px;
+    border: #D8D8D8 solid 1px;
     position:relative;
+    background-color: white;
+
 }

@@ -54,7 +54,7 @@ export default ({ match }) => {
                     </Route>
                     <Route path={`${match.path}/new`}>
                         <NavBar />
-                        <MeetingEdit />
+                        <MeetingEdit CreateMeeting={true} />
                         <BottomBar />
                     </Route>
                 </Switch>

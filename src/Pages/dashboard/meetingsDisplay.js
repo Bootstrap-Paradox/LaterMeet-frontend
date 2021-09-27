@@ -44,7 +44,9 @@ const MeetingDisplay = () => {
                             )
                         })}
                     </section>
-                    <button className="btn btn-secondary btn-long-xl">New Meeting</button>
+                    <button className="btn btn-secondary btn-long-xl" onClick={() => {
+                        history.push("/d/new")
+                    }}>New Meeting</button>
                 </section>
             }
         </>
