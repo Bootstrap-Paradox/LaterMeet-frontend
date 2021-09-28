@@ -362,7 +362,8 @@ textarea {
 }
 
 .meeting-view .view-box .data, .meeting-edit .view-box .data {
-  margin: 1.7rem 0;
+  margin: 1.7rem 1rem;
+  text-align: start;
   font-weight: 500;
 }
 
