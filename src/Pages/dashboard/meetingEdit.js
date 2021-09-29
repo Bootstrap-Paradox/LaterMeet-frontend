@@ -52,18 +52,28 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
         }
         else {
 
-            const finalData = meetingInfo;
-            delete finalData["meeting_hosts"]
-            delete finalData["meeting_speakers"]
-            axios.put(
-                `http://0.0.0.0:8001/meetings/${meetingInfo["_id"]}`,
-                meetingInfo,
-                { headers: { authorization: token } }
-            ).then(res => {
-                history.push("/d/h");
-            }).catch(err => {
-                // Display Error
+            var updateChanges = false;
+
+            Object.keys(meetingInfo).map((key) => {
+                if (meetingInfo[key] !== superState.meetingData[key]) updateChanges = true
             })
+            if (!updateChanges) history.push("/d/h")
+            else {
+                const finalData = meetingInfo;
+                delete finalData["meeting_hosts"]
+                delete finalData["meeting_speakers"]
+                axios.put(
+                    `http://0.0.0.0:8001/meetings/${meetingInfo["_id"]}`,
+                    meetingInfo,
+                    { headers: { authorization: token } }
+                ).then(res => {
+                    history.push("/d/h");
+                }).catch(err => {
+                    // Display Error
+                })
+
+            }
+
         }
 
 
