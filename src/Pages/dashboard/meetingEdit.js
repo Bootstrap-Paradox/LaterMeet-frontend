@@ -91,19 +91,22 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
                 }} >
                     <MeetingEditInput placeholder="Meeting Name" fieldData={["meeting_name", meetingInfo["meeting_name"]]} setMeetingInfo={setMeetingInfo} />
                     <MeetingEditInput placeholder="Meeting Url" fieldData={["meeting_url", meetingInfo["meeting_url"]]} setMeetingInfo={setMeetingInfo} />
-                    <input type="file" onChange={(e) => {
-                        e.preventDefault();
-                        setUploadVideo(e.target.files[0]);
-                    }} />
-                    <button onClick={(e) => {
-                        e.preventDefault();
-                        uploadBytes(generateRef(uploadVideo.name), uploadVideo).then((snapShot) => {
-                            uploadData(e)
-                        }).catch((err) => {
-                            console.log(err);
-                            alert("Upload Unsuccessful");
-                        })
-                    }}>Upload Media</button>
+                    {CreateMeeting || <>
+                        <input type="file" onChange={(e) => {
+                            e.preventDefault();
+                            setUploadVideo(e.target.files[0]);
+                        }} />
+                        <button onClick={(e) => {
+                            e.preventDefault();
+                            uploadBytes(generateRef(uploadVideo.name), uploadVideo).then((snapShot) => {
+                                uploadData(e)
+                            }).catch((err) => {
+                                console.log(err);
+                                alert("Upload Unsuccessful");
+                            })
+                        }}>Upload Media</button>
+                    </>
+                    }
                     <MeetingEditTextArea placeholder="Description" fieldData={["meeting_description", meetingInfo["meeting_description"]]} setMeetingInfo={setMeetingInfo} />
                     <button onClick={uploadData} className="btn btn-secondary btn-long-xl">{CreateMeeting ? "Create Meeting" : "Save Meeting"}</button>
                 </form>
