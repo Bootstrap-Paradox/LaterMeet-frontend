@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import { SuperContext } from './dashboardHome';
 import axios from 'axios';
 import { getCookie } from '../../Logics/cookies';
+import { generateRef, uploadBytes } from '../../Logics/firebase';
 
 
 const MeetingEdit = ({ CreateMeeting = false }) => {
@@ -10,6 +11,7 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
     const { superState, superDispatch } = useContext(SuperContext);
     const history = useHistory();
 
+    const [uploadVideo, setUploadVideo] = useState('');
 
     const [meetingInfo, setMeetingInfo] = useState(CreateMeeting ?
         {
@@ -89,6 +91,19 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
                 }} >
                     <MeetingEditInput placeholder="Meeting Name" fieldData={["meeting_name", meetingInfo["meeting_name"]]} setMeetingInfo={setMeetingInfo} />
                     <MeetingEditInput placeholder="Meeting Url" fieldData={["meeting_url", meetingInfo["meeting_url"]]} setMeetingInfo={setMeetingInfo} />
+                    <input type="file" onChange={(e) => {
+                        e.preventDefault();
+                        setUploadVideo(e.target.files[0]);
+                    }} />
+                    <button onClick={(e) => {
+                        e.preventDefault();
+                        uploadBytes(generateRef(uploadVideo.name), uploadVideo).then((snapShot) => {
+                            uploadData(e)
+                        }).catch((err) => {
+                            console.log(err);
+                            alert("Upload Unsuccessful");
+                        })
+                    }}>Upload Media</button>
                     <MeetingEditTextArea placeholder="Description" fieldData={["meeting_description", meetingInfo["meeting_description"]]} setMeetingInfo={setMeetingInfo} />
                     <button onClick={uploadData} className="btn btn-secondary btn-long-xl">{CreateMeeting ? "Create Meeting" : "Save Meeting"}</button>
                 </form>
