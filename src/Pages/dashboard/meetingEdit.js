@@ -90,21 +90,30 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
                 <form action="" onSubmit={() => {
                 }} >
                     <MeetingEditInput placeholder="Meeting Name" fieldData={["meeting_name", meetingInfo["meeting_name"]]} setMeetingInfo={setMeetingInfo} />
-                    <MeetingEditInput placeholder="Meeting Url" fieldData={["meeting_url", meetingInfo["meeting_url"]]} setMeetingInfo={setMeetingInfo} />
                     {CreateMeeting || <>
-                        <input type="file" onChange={(e) => {
-                            e.preventDefault();
-                            setUploadVideo(e.target.files[0]);
-                        }} />
-                        <button onClick={(e) => {
-                            e.preventDefault();
-                            uploadBytes(generateRef(uploadVideo.name), uploadVideo).then((snapShot) => {
-                                uploadData(e)
-                            }).catch((err) => {
-                                console.log(err);
-                                alert("Upload Unsuccessful");
-                            })
-                        }}>Upload Media</button>
+                        <div className="">
+
+                            <label className="file-upload">
+
+                                <input type="file" onChange={(e) => {
+                                    e.preventDefault();
+                                    setUploadVideo(e.target.files[0]);
+                                }} />
+                                <span>{uploadVideo ? ellipseText(uploadVideo.name) : "Choose File"}</span>
+                                <button className="btn btn-primary" onClick={(e) => { e.preventDefault(); setUploadVideo('') }}>X</button>
+                            </label>
+
+                            <button className="btn btn-secondary" onClick={(e) => {
+                                e.preventDefault();
+                                uploadBytes(generateRef(meetingInfo["_id"]), uploadVideo).then((snapShot) => {
+                                    console.log(snapShot);
+                                    uploadData(e)
+                                }).catch((err) => {
+                                    console.log(err);
+                                    alert("Upload Unsuccessful");
+                                })
+                            }}>Upload Media</button>
+                        </div>
                     </>
                     }
                     <MeetingEditTextArea placeholder="Description" fieldData={["meeting_description", meetingInfo["meeting_description"]]} setMeetingInfo={setMeetingInfo} />
@@ -157,6 +166,10 @@ const MeetingEditTextArea = ({ placeholder = "", fieldData = [], setMeetingInfo 
 
         </>
     )
+}
+
+const ellipseText = (name) => {
+    return name.length < 15 ? name : `${name.split("").filter((val, index) => index < 14).join("")}...`
 }
 
 export default MeetingEdit;

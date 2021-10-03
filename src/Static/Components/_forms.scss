@@ -103,3 +103,57 @@
 textarea{
     padding-top: 0.4rem;
 }
+
+input[type=file]{
+    display:none;
+    padding-top: 10px;
+}
+
+.custom-file-upload{
+    display:grid;
+    grid-template-areas: 'upload button';
+    align-items: center;
+    height: 74px;
+    @extend .box;
+
+
+    
+    .btn{
+        grid-area: button;
+    }
+    
+    
+}
+
+.file-upload{
+    grid-area: upload;
+    // @extend .box;
+    @extend .form-control;
+    position: relative;
+    display: block;
+    height: 32px;
+    background-color: white;
+    margin:auto;
+    // padding: auto 1rem;
+    padding: 0;
+
+    position: relative;
+
+    .btn, span{
+        position: absolute;
+        margin:0;
+
+        top:50%;
+        transform: translateY(-50%);
+    }
+
+    span{
+        left: 10px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .btn{
+        right:0;
+    }
+    
+}

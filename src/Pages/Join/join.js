@@ -64,7 +64,7 @@ const JoinPage = () => {
             {meetingData &&
                 <div style={{ textAlign: "center" }} className="boundary">
                     <h1 style={{ marginTop: "57px" }}>{meetingData && meetingData["meeting_name"]}</h1>
-                    <VideoElement src_url={meetingData["meeting_url"]} />
+                    <VideoElement src_id={meetingData["_id"]} />
                     <Description content={meetingData["meeting_description"]} />
                 </div>
             }
@@ -96,10 +96,11 @@ const Description = ({ content = "" }) => {
     )
 }
 
-const VideoElement = ({ src_url, type = "video/mp4" }) => {
+const VideoElement = ({ src_id, type = "video/mp4" }) => {
+
     return (
         <video width="320" height="auto" id="video-component" controls muted="muted" onWaiting={() => { console.log("hey") }} onTimeUpdate={() => { }} autoPlay={true} >
-            <source src={src_url} type={type} />
+            <source src={`https://firebasestorage.googleapis.com/v0/b/business-interaction-68cbf.appspot.com/o/videos%2F${src_id}?alt=media`} type={type} />
             <p>Something Went Wrong</p>
         </video>
     )

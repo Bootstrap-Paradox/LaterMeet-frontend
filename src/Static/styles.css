@@ -63,40 +63,41 @@
   transition: all 0.3s;
 }
 
-.form-group .form-control {
+.form-group .form-control, .form-group .file-upload {
   z-index: 6;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
 
-.form-group .form-control::-webkit-input-placeholder {
+.form-group .form-control::-webkit-input-placeholder, .form-group .file-upload::-webkit-input-placeholder {
   color: transparent;
 }
 
-.form-group .form-control:-ms-input-placeholder {
+.form-group .form-control:-ms-input-placeholder, .form-group .file-upload:-ms-input-placeholder {
   color: transparent;
 }
 
-.form-group .form-control::-ms-input-placeholder {
+.form-group .form-control::-ms-input-placeholder, .form-group .file-upload::-ms-input-placeholder {
   color: transparent;
 }
 
-.form-group .form-control::placeholder {
+.form-group .form-control::placeholder, .form-group .file-upload::placeholder {
   color: transparent;
 }
 
-.form-group .form-control:focus {
+.form-group .form-control:focus, .form-group .file-upload:focus {
   outline: none;
   border-color: orange;
 }
 
-.form-group .form-control:focus + .form-label,
-.form-group .form-control:not(:placeholder-shown) + .form-label {
+.form-group .form-control:focus + .form-label, .form-group .file-upload:focus + .form-label,
+.form-group .form-control:not(:placeholder-shown) + .form-label,
+.form-group .file-upload:not(:placeholder-shown) + .form-label {
   -webkit-transform: translateY(-4.1rem) translateX(-0.2rem) scale(0.9);
           transform: translateY(-4.1rem) translateX(-0.2rem) scale(0.9);
 }
 
-.form-control {
+.form-control, .file-upload {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 1rem;
   border-radius: 0.6rem;
@@ -112,13 +113,65 @@
   transition: all 0.3s;
 }
 
-.form-control:focus {
+.form-control:focus, .file-upload:focus {
   outline: none;
   border-color: orange;
 }
 
 textarea {
   padding-top: 0.4rem;
+}
+
+input[type=file] {
+  display: none;
+  padding-top: 10px;
+}
+
+.custom-file-upload {
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: 'upload button';
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 74px;
+}
+
+.custom-file-upload .btn {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: button;
+}
+
+.file-upload {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: upload;
+  position: relative;
+  display: block;
+  height: 32px;
+  background-color: white;
+  margin: auto;
+  padding: 0;
+  position: relative;
+}
+
+.file-upload .btn, .file-upload span {
+  position: absolute;
+  margin: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.file-upload span {
+  left: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-upload .btn {
+  right: 0;
 }
 
 .btn {
@@ -382,11 +435,11 @@ textarea {
   font-weight: 600;
 }
 
-.box, .meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile {
+.box, .custom-file-upload, .meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile {
   margin: 0.8rem 1.6rem;
 }
 
-.plain-box, .box, .meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile {
+.plain-box, .box, .custom-file-upload, .meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile {
   border-radius: 8px;
   border: #D8D8D8 solid 1px;
   position: relative;
