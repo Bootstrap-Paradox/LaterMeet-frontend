@@ -2,11 +2,16 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { SuperContext } from './dashboardHome';
 import axios from 'axios';
-import { getCookie } from '../../Logics/cookies';
-import { generateRef, uploadBytes } from '../../Logics/firebase';
+import fetchToken from '../../Logics/token';
+import { uploadFirebase } from '../../Logics/firebase';
+
+
+
 
 
 const MeetingEdit = ({ CreateMeeting = false }) => {
+
+    const [uploadProgress, setUploadProgress] = useState(0);
 
     const { superState, superDispatch } = useContext(SuperContext);
     const history = useHistory();
@@ -25,14 +30,11 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
     if (Object.keys(superState.meetingData).length === 0 && !CreateMeeting) history.push("/d/h")
 
 
-    function uploadData(e) {
-        e.preventDefault();
+    function uploadData() {
+        // e.preventDefault();
         // Logic for Post and Put
         // Axios Request 
-        const access_token = getCookie("access_token");
-        console.log(access_token)
-
-        const token = `BEARER ${access_token}`
+        const requestData = meetingInfo
 
         if (CreateMeeting) {
             axios.post(
@@ -40,7 +42,7 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
                 meetingInfo,
                 {
                     headers: {
-                        authorization: token
+                        ...fetchToken()
                     }
                 }
             ).then(res => {
@@ -61,13 +63,13 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
             })
             if (!updateChanges) history.push("/d/h")
             else {
-                const finalData = meetingInfo;
+                const finalData = requestData;
                 delete finalData["meeting_hosts"]
                 delete finalData["meeting_speakers"]
                 axios.put(
-                    `http://0.0.0.0:8001/meetings/${meetingInfo["_id"]}`,
+                    `http://0.0.0.0:8001/meetings/${superState.meetingData["_id"]}`,
                     meetingInfo,
-                    { headers: { authorization: token } }
+                    { headers: { ...fetchToken() } }
                 ).then(res => {
                     history.push("/d/h");
                 }).catch(err => {
@@ -82,6 +84,11 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
 
     }
 
+    useEffect(() => {
+        if (!CreateMeeting && meetingInfo.meeting_url !== undefined && meetingInfo.meeting_url !== superState.meetingData.meeting_url) {
+            uploadData()
+        }
+    }, [meetingInfo.meeting_url])
 
     return (
         <>
@@ -91,37 +98,50 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
                 }} >
                     <MeetingEditInput placeholder="Meeting Name" fieldData={["meeting_name", meetingInfo["meeting_name"]]} setMeetingInfo={setMeetingInfo} />
                     {CreateMeeting || <>
-                        <div className="">
-
-                            <label className="file-upload">
-
-                                <input type="file" onChange={(e) => {
-                                    e.preventDefault();
-                                    setUploadVideo(e.target.files[0]);
-                                }} />
-                                <span>{uploadVideo ? ellipseText(uploadVideo.name) : "Choose File"}</span>
-                                <button className="btn btn-primary" onClick={(e) => { e.preventDefault(); setUploadVideo('') }}>X</button>
-                            </label>
-
-                            <button className="btn btn-secondary" onClick={(e) => {
-                                e.preventDefault();
-                                uploadBytes(generateRef(meetingInfo["_id"]), uploadVideo).then((snapShot) => {
-                                    console.log(snapShot);
-                                    uploadData(e)
-                                }).catch((err) => {
-                                    console.log(err);
-                                    alert("Upload Unsuccessful");
-                                })
-                            }}>Upload Media</button>
-                        </div>
+                        <VideoUploadInput setUploadVideo={setUploadVideo} uploadVideo={uploadVideo} setMeetingInfo={setMeetingInfo} uploadProgress={uploadProgress} setUploadProgress={setUploadProgress} meetingInfo={meetingInfo} />
                     </>
                     }
                     <MeetingEditTextArea placeholder="Description" fieldData={["meeting_description", meetingInfo["meeting_description"]]} setMeetingInfo={setMeetingInfo} />
-                    <button onClick={uploadData} className="btn btn-secondary btn-long-xl">{CreateMeeting ? "Create Meeting" : "Save Meeting"}</button>
+                    <button onClick={(e) => {
+                        e.preventDefault();
+                        uploadData()
+                    }} className="btn btn-secondary btn-long-xl">{CreateMeeting ? "Create Meeting" : "Save Meeting"}</button>
                 </form>
 
             </section>
         </>
+    )
+}
+
+const VideoUploadInput = ({ setUploadVideo, uploadVideo, setMeetingInfo, uploadProgress, setUploadProgress, meetingInfo, setDownloadUrl }) => {
+    return (
+        <div className="">
+
+            <label className="file-upload">
+
+                <input type="file" onChange={(e) => {
+                    e.preventDefault();
+                    setUploadVideo(e.target.files[0]);
+                }} />
+                <span>{uploadVideo ? ellipseText(uploadVideo.name) : "Choose File"}</span>
+                <button className="btn btn-primary" onClick={(e) => { e.preventDefault(); setUploadVideo('') }}>X</button>
+            </label>
+
+            {uploadProgress > 0 && <span className="percent"><p>{`${uploadProgress.toFixed(2)}%`}</p></span>}
+
+            <button className="btn btn-secondary" onClick={async (e) => {
+                e.preventDefault();
+                uploadFirebase({ fileName: meetingInfo["_id"], uploadFile: uploadVideo, setUploadProgress, setMeetingInfo }).then((url) => {
+                    setMeetingInfo((prevState) => {
+                        return {
+                            ...prevState,
+                            meeting_url: url
+                        }
+                    })
+
+                })
+            }}>Upload</button>
+        </div>
     )
 }
 

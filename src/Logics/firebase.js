@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 const firebaseConfig = {
     apiKey: "AIzaSyD2k_FpLxRf0EaZ1Xeu0A32uhTD2OV7wHc",
@@ -17,11 +17,42 @@ var firebaseStorage = getStorage(firebaseApp);
 // var storageRef = ref(firebaseStorage);
 
 const generateRef = (fileName = "unknown") => {
-    console.log(fileName)
     return ref(firebaseStorage, `videos/${fileName}`);
-
 }
 
-const videoRef = ref(firebaseStorage, 'videos/')
+const uploadFirebase = async ({ fileName = new Date().getTime().toString(), uploadFile = undefined, setUploadProgress = () => { }, setMeetingInfo = () => { } }) => {
 
-export { generateRef, uploadBytes };
+    const uploadTask = uploadBytesResumable(generateRef(fileName), uploadFile);
+
+    uploadTask.on("state_changed", (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUploadProgress(progress)
+
+        switch (snapshot.state) {
+            case 'pause':
+                console.log("paused");
+                break;
+
+            case 'running':
+                console.log("running");
+                break;
+        }
+    },
+        (err) => {
+            console.log("unsuccessful Upload");
+        },
+        () => {
+            getDownloadURL(generateRef(fileName)).then((dUrl) => {
+
+                setMeetingInfo((prevState) => {
+                    return {
+                        ...prevState,
+                        meeting_url: dUrl,
+                    }
+                });
+            })
+        }
+    )
+}
+
+export { uploadFirebase };
