@@ -4,6 +4,7 @@ import { SuperContext } from './dashboardHome';
 import axios from 'axios';
 import fetchToken from '../../Logics/token';
 import { uploadFirebase } from '../../Logics/firebase';
+import { url } from '../../url';
 
 
 
@@ -38,7 +39,8 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
 
         if (CreateMeeting) {
             axios.post(
-                "http://0.0.0.0:8001/meetings/",
+                `http://${url}:8001/meetings/`,
+
                 meetingInfo,
                 {
                     headers: {
@@ -67,7 +69,7 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
                 delete finalData["meeting_hosts"]
                 delete finalData["meeting_speakers"]
                 axios.put(
-                    `http://0.0.0.0:8001/meetings/${superState.meetingData["_id"]}`,
+                    `http://${url}:8001/meetings/${superState.meetingData["_id"]}`,
                     meetingInfo,
                     { headers: { ...fetchToken() } }
                 ).then(res => {

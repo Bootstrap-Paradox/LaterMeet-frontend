@@ -2,13 +2,14 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import useFetch from '../../Hooks/useFetch';
 import { SuperContext } from './dashboardHome';
+import { url } from '../../url';
 
 const MeetingDisplay = () => {
     const { superState, superDispatch } = useContext(SuperContext);
     const [redirect, setRedirect] = useState(false);
     const history = useHistory()
 
-    const { data: meetings, loading: meetingsLoading, error: meetingsError } = useFetch({ url: "http://0.0.0.0:8001/meetings/" })
+    const { data: meetings, loading: meetingsLoading, error: meetingsError } = useFetch({ url: `http://${url}:8001/meetings/` })
 
     useEffect(() => {
         // if (redirect) return <Redirect to="/d/#view" />
@@ -38,7 +39,7 @@ const MeetingDisplay = () => {
 
                                 }} className="display-tile">
                                     <span>{meeting.meeting_name}</span>
-                                    <span>12</span>
+                                    <span>{meeting.meeting_views}</span>
 
                                 </div>
                             )

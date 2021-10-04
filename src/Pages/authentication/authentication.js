@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { setCookie } from '../../Logics/cookies';
+import { url } from '../../url';
 
 const Authentication = (
     {
@@ -34,7 +35,8 @@ const Authentication = (
         if (reqData.hasOwnProperty("password") && reqData["password"] === "") return false
 
         axios.post(
-            `http://0.0.0.0:8001/${apiEndpoint}`,
+            `http://${url}:8001/${apiEndpoint}`,
+
             reqData,
             // { validateStatus: false },
         ).then(res => {

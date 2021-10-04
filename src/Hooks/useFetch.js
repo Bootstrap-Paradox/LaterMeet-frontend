@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { getCookie } from '../Logics/cookies';
 
@@ -23,7 +23,7 @@ function useFetch({ url = "", authorized = false, superDispatch = null }) {
     // const [data, setData] = useState(payload)
 
 
-    // let history = useHistory();
+    let history = useHistory();
 
     // const { notify } = useContext(MessageContext);
     const [notification, setNotification] = useState({});
@@ -69,6 +69,7 @@ function useFetch({ url = "", authorized = false, superDispatch = null }) {
                             setNotification({ message: msg.message, status: msg.status })
                         }
                         if (err.response.status === 401) {
+                            history.push("/login");
 
                             return () => { source.cancel() }
 
@@ -77,12 +78,12 @@ function useFetch({ url = "", authorized = false, superDispatch = null }) {
                     }
                     else {
                         if (err.response.status === 401) {
-                            setNotification({ message: "Unauthorized Access", status: "danger" })
+                            // setNotification({ message: "Unauthorized Access", status: "danger" })
 
                         }
                     }
                 }
-                setError({ "error": err.toString().split(" ").slice(1).join(" "), "data": err.response.data })
+                setError({ "error": err.toString(), "data": err.response.data })
             })
             return () => {
                 source.cancel()

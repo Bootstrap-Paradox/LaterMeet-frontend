@@ -4,6 +4,7 @@ import useLocalStorage from '../../Hooks/useLocalStorage';
 
 import useFetch from '../../Hooks/useFetch';
 import BottomBar from '../../Components/bottomBar';
+import { url } from '../../url';
 
 
 const JoinPage = () => {
@@ -12,7 +13,8 @@ const JoinPage = () => {
     const [meetingStartTime, setmeetingStartTime] = useLocalStorage("x12", new Date().getTime()); // Time will be locally stored to provide a better Live Experience
 
     const { meeting_id } = useParams();
-    const { data: meetingData, loading: meetingLoading, error: meetingError } = useFetch({ url: `http://0.0.0.0:8001/meetings/join/${meeting_id}` })
+    const { data: meetingData, loading: meetingLoading, error: meetingError } = useFetch({ url: `http://${url}:8001/meetings/join/${meeting_id}` })
+
 
     const [inter, setInter] = useState(true);
 
@@ -64,7 +66,7 @@ const JoinPage = () => {
             {meetingData &&
                 <div style={{ textAlign: "center" }} className="boundary">
                     <h1 style={{ marginTop: "57px" }}>{meetingData && meetingData["meeting_name"]}</h1>
-                    <VideoElement src_id={meetingData["_id"]} />
+                    <VideoElement meeting_url={meetingData["meeting_url"]} />
                     <Description content={meetingData["meeting_description"]} />
                 </div>
             }
@@ -96,11 +98,11 @@ const Description = ({ content = "" }) => {
     )
 }
 
-const VideoElement = ({ src_id, type = "video/mp4" }) => {
+const VideoElement = ({ meeting_url, type = "video/mp4" }) => {
 
     return (
-        <video width="320" height="auto" id="video-component" controls muted="muted" onWaiting={() => { console.log("hey") }} onTimeUpdate={() => { }} autoPlay={true} >
-            <source src={`https://firebasestorage.googleapis.com/v0/b/business-interaction-68cbf.appspot.com/o/videos%2F${src_id}?alt=media`} type={type} />
+        <video style={{ pointerEvents: "none" }} width="320" height="auto" id="video-component" muted="muted" onWaiting={() => { console.log("hey") }} onTimeUpdate={() => { }} autoPlay={true} >
+            <source src={meeting_url} type={type} />
             <p>Something Went Wrong</p>
         </video>
     )
