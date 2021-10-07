@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../../Components/NavBar';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { setCookie } from '../../Logics/cookies';
-import { url } from '../../url';
+import API from '../../Logics/request';
+import { setToken } from '../../Logics/token';
 
 const Authentication = (
     {
@@ -33,17 +33,13 @@ const Authentication = (
         }
 
         if (reqData.hasOwnProperty("password") && reqData["password"] === "") return false
-
-        axios.post(
-            `http://${url}:8001/${apiEndpoint}`,
-
-            reqData,
-            // { validateStatus: false },
-        ).then(res => {
-            if (res.data.hasOwnProperty("access_token")) { console.log("Token set"); setCookie("access_token", res.data["access_token"]) }
+        API({ method: "post", endpoint: apiEndpoint, data: reqData }).then(res => {
+            if (apiEndpoint === "signup") history.push("/confirmation")
+            if (res.data.hasOwnProperty("access_token")) {
+                setToken({ tokenData: res.data })
+            }
             if (apiEndpoint === "login") history.push("/")
             // else history.push("") TODO: Enter Code
-            return res.data
         }).catch(err => {
             return false
         })
