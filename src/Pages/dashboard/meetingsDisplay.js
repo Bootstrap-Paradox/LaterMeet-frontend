@@ -16,9 +16,15 @@ const MeetingDisplay = () => {
         setRedirect(false);
     }, [redirect])
 
+    useEffect(() => {
+        if (meetingsError && meetingsError.status === 404) {
+            history.push("/d/new")
+        }
+    }, [meetingsError])
+
     return (
         <>
-            {meetingsError && <p>{meetingsError}</p>}
+            {meetingsError && <p>{meetingsError.status}</p>}
             {meetingsLoading && <p>Loading</p>}
             {
                 meetings &&

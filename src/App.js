@@ -8,6 +8,7 @@ import JoinPage from './Pages/Join/join';
 import "./Static/styles.css";
 
 import DashboardHome from './Pages/dashboard/dashboardHome';
+import EnterCode from './Pages/authentication/enterCode';
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
           <JoinPage />
         </Route>
         <Route path="/d" component={DashboardHome} />
+        <Route path="/confirmation">
+          <EnterCode />
+
+        </Route>
         <Route path="/signup">
           <Authentication title="SignUp" description="Accompany Audience even while away" apiEndpoint="signup" inputs={
             {
