@@ -1,6 +1,5 @@
 import React, { useReducer, useContext, createContext } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import BottomBar from '../../Components/bottomBar';
 import NavBar from '../../Components/NavBar';
 import MeetingEdit from './meetingEdit';
 import MeetingDisplay from './meetingsDisplay';
@@ -38,24 +37,20 @@ export default ({ match }) => {
                     <Route exact path={`${match.path}/h`}>
                         <NavBar />
                         <MeetingDisplay />
-                        <BottomBar />
                     </Route>
                     <Route path={`${match.path}/view`} >
-                        {console.log(match.path)}
+
                         <NavBar />
                         <MeetingView />
-                        <BottomBar />
                     </Route>
                     <Route path={`${match.path}/edit`}>
                         <NavBar />
                         <MeetingEdit />
-                        <BottomBar />
 
                     </Route>
                     <Route path={`${match.path}/new`}>
                         <NavBar />
                         <MeetingEdit CreateMeeting={true} />
-                        <BottomBar />
                     </Route>
                 </Switch>
 
