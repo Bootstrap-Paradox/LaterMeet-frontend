@@ -1,10 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { SuperContext } from './dashboardHome';
-import axios from 'axios';
-import fetchToken from '../../Logics/token';
 import { uploadFirebase } from '../../Logics/firebase';
-import { url } from '../../url';
+import API from '../../Logics/request';
 
 
 
@@ -38,16 +36,7 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
         const requestData = meetingInfo
 
         if (CreateMeeting) {
-            axios.post(
-                `http://${url}:8001/meetings/`,
-
-                meetingInfo,
-                {
-                    headers: {
-                        ...fetchToken()
-                    }
-                }
-            ).then(res => {
+            API({ method: "post", endpoint: "meetings/", data: meetingInfo }).then(res => {
                 console.log("What is going on here")
                 history.push("/d/h");
 
@@ -68,11 +57,7 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
                 const finalData = requestData;
                 delete finalData["meeting_hosts"]
                 delete finalData["meeting_speakers"]
-                axios.put(
-                    `http://${url}:8001/meetings/${superState.meetingData["_id"]}`,
-                    meetingInfo,
-                    { headers: { ...fetchToken() } }
-                ).then(res => {
+                API({ method: "post", endpoint: `meetings/${superState.meetingData["_id"]}`, data: meetingInfo }).then(res => {
                     history.push("/d/h");
                 }).catch(err => {
                     // Display Error
