@@ -313,6 +313,7 @@ input[type=file] {
   width: 42px;
   aspect-ratio: 1/1;
   border: #D8D8D8 solid 1px;
+  background-color: white;
 }
 
 .meeting-display {
@@ -448,6 +449,24 @@ input[type=file] {
   border: #D8D8D8 solid 1px;
   position: relative;
   background-color: white;
+}
+
+.block {
+  height: 48px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 120px 1fr;
+      grid-template-columns: 120px 1fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 1rem;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.faded {
+  color: rgba(0, 0, 0, 0.4);
 }
 
 * {
