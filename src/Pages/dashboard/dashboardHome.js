@@ -1,6 +1,7 @@
 import React, { useReducer, useContext, createContext } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from '../../Components/NavBar';
+import UserInformationDisplay from '../userInformationDisplay';
 import MeetingEdit from './meetingEdit';
 import MeetingDisplay from './meetingsDisplay';
 import MeetingView from './meetingView';
@@ -47,6 +48,10 @@ export default ({ match }) => {
                         <NavBar />
                         <MeetingEdit />
 
+                    </Route>
+                    <Route path={`${match.path}/user`}>
+                        <NavBar />
+                        <UserInformationDisplay />
                     </Route>
                     <Route path={`${match.path}/new`}>
                         <NavBar />

@@ -57,6 +57,7 @@
     width: 42px;
     aspect-ratio: 1/1;
     border: #D8D8D8 solid 1px;
+    background-color: white;
     
 }
 
@@ -187,5 +188,21 @@
     border: #D8D8D8 solid 1px;
     position:relative;
     background-color: white;
+
+}
+
+.block{
+    height: 48px;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    align-items: center;
+    padding: 0 1rem;
+    margin: 0;
+    margin-bottom: 1rem;
+
+}
+
+.faded{
+    color: rgba(0,0,0,0.4);
 
 }

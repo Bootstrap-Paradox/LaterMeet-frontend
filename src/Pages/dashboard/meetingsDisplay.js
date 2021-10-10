@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import useFetch from '../../Hooks/useFetch';
 import { SuperContext } from './dashboardHome';
 import { url } from '../../url';
+import { Link } from 'react-router-dom';
 
 const MeetingDisplay = () => {
     const { superState, superDispatch } = useContext(SuperContext);
@@ -31,7 +32,7 @@ const MeetingDisplay = () => {
                 <section className="meeting-display">
                     <div className="greetings">
                         <h1>Hello <span>{meetings["request_name"].split(" ")[0]}</span>!</h1>
-                        <div className="profile"><img /></div>
+                        <Link to="/d/user"><div className="profile"><img /></div></Link>
 
                     </div>
 
