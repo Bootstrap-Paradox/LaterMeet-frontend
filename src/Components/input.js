@@ -10,7 +10,7 @@ const Input = (props) => {
 
     return (
         <div className="form-group">
-            <input id={`input-${props.name}`} placeholder={props.name} type={checkProp("type") ? props.type : "text"} name={props.name} value={value} onChange={(e) => {
+            <input id={`input-${props.name}`} placeholder={checkProp("placeholder") ? props.placeholder : props.name} type={checkProp("type") ? props.type : "text"} name={props.name} value={value} onChange={(e) => {
                 e.preventDefault();
                 if (checkProp("onChange")) props.onChange(e)
                 setValue(e.target.value)
