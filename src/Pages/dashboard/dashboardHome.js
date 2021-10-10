@@ -1,6 +1,7 @@
 import React, { useReducer, useContext, createContext } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from '../../Components/NavBar';
+import EditUserInformation from '../editUserInformation';
 import UserInformationDisplay from '../userInformationDisplay';
 import MeetingEdit from './meetingEdit';
 import MeetingDisplay from './meetingsDisplay';
@@ -49,7 +50,7 @@ export default ({ match }) => {
                         <MeetingEdit />
 
                     </Route>
-                    <Route path={`${match.path}/user`}>
+                    <Route path={`${match.path}/user`} exact>
                         <NavBar />
                         <UserInformationDisplay />
                     </Route>

@@ -1,11 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import useFetch from '../Hooks/useFetch';
 import { url } from '../url';
+import EditUserInformation from './editUserInformation';
 
 
 const UserInformationDisplay = () => {
 
+    const history = useHistory()
+
+    const [editUserProfile, setEditUserProfile] = useState(false);
+
     const { data: userInformation, loading: userInformationLoading, error: userInformtionError } = useFetch({ url: `http://${url}:8001/user/` })
+
+    if (editUserProfile) {
+        return (<EditUserInformation userInformation={userInformation} setEditUserProfile={setEditUserProfile} />)
+    }
 
     return (
         <>
@@ -23,7 +33,12 @@ const UserInformationDisplay = () => {
                     </section>
 
                 }
-                <button className="btn btn-primary btn-long-xl">Edit Profile</button>
+                <button className="btn btn-primary btn-long-xl" onClick={(e) => {
+                    e.preventDefault();
+                    setEditUserProfile(true);
+
+
+                }}>Edit Profile</button>
 
             </section>
         </>
