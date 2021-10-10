@@ -15,7 +15,7 @@ const Input = (props) => {
                 if (checkProp("onChange")) props.onChange(e)
                 setValue(e.target.value)
             }} className="form-control" />
-            <label htmlFor={`input-${props.name}`} className="form-label"></label>
+            <label htmlFor={`input-${props.name}`} className="form-label">{props.name}</label>
         </div>
     )
 }
