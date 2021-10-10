@@ -6,11 +6,11 @@ const Input = (props) => {
         return props.hasOwnProperty(checkFor);
     }
 
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState(checkProp("value") ? props.value : "");
 
     return (
         <div className="form-group">
-            <input id={`input-${props.name}`} placeholder={props.name} type={checkProp("type") ? props.type : "text"} name={props.name} value={props.hasOwnProperty("value") ? props.value : value} onChange={(e) => {
+            <input id={`input-${props.name}`} placeholder={props.name} type={checkProp("type") ? props.type : "text"} name={props.name} value={value} onChange={(e) => {
                 e.preventDefault();
                 if (checkProp("onChange")) props.onChange(e)
                 setValue(e.target.value)
