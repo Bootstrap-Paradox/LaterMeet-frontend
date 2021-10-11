@@ -16,7 +16,7 @@ function App() {
       <Switch>
         <Route exact path="/">
           <NavBar />
-          <div className="boundary"><h1>Hey</h1></div>
+          <div className="boundary" style={{ textAlign: 'center' }}><h1>Coming Soon</h1></div>
         </Route>
         <Route path="/jn/:meeting_id" exact >
           <NavBar />
