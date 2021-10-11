@@ -22,6 +22,11 @@ function useFetch({ url = "", authorized = false, superDispatch = null }) {
     // Posts Data to the Api
     // const [data, setData] = useState(payload)
 
+    const [redirect, setRedirect] = useState({
+        url: "",
+        redirect: false
+    })
+
 
     let history = useHistory();
 
@@ -83,7 +88,9 @@ function useFetch({ url = "", authorized = false, superDispatch = null }) {
                         }
                     }
                 }
-                setError({ "error": err.toString(), "data": err.response.data })
+                console.log(err)
+
+                setError({ msg: err.response.data.msg, status: err.response.status })
             })
             return () => {
                 source.cancel()

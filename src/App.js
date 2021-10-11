@@ -8,6 +8,7 @@ import JoinPage from './Pages/Join/join';
 import "./Static/styles.css";
 
 import DashboardHome from './Pages/dashboard/dashboardHome';
+import EnterCode from './Pages/authentication/enterCode';
 
 function App() {
   return (
@@ -15,13 +16,17 @@ function App() {
       <Switch>
         <Route exact path="/">
           <NavBar />
-          <div className="boundary"><h1>Hey</h1></div>
+          <div className="boundary" style={{ textAlign: 'center' }}><h1>Coming Soon</h1></div>
         </Route>
         <Route path="/jn/:meeting_id" exact >
           <NavBar />
           <JoinPage />
         </Route>
         <Route path="/d" component={DashboardHome} />
+        <Route path="/confirmation">
+          <EnterCode />
+
+        </Route>
         <Route path="/signup">
           <Authentication title="SignUp" description="Accompany Audience even while away" apiEndpoint="signup" inputs={
             {
