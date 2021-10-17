@@ -4,7 +4,7 @@ import useLocalStorage from '../../Hooks/useLocalStorage';
 
 import useFetch from '../../Hooks/useFetch';
 import BottomBar from '../../Components/bottomBar';
-import { url } from '../../url';
+import { baseURL } from '../../url';
 
 
 const JoinPage = () => {
@@ -13,7 +13,7 @@ const JoinPage = () => {
     const [meetingStartTime, setmeetingStartTime] = useLocalStorage("x12", new Date().getTime()); // Time will be locally stored to provide a better Live Experience
 
     const { meeting_id } = useParams();
-    const { data: meetingData, loading: meetingLoading, error: meetingError } = useFetch({ url: `http://${url}:8001/meetings/join/${meeting_id}` })
+    const { data: meetingData, loading: meetingLoading, error: meetingError } = useFetch({ url: `${baseURL}/meetings/join/${meeting_id}` })
 
 
     const [inter, setInter] = useState(true);
