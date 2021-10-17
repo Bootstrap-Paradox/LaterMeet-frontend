@@ -3,16 +3,18 @@ import Input from '../Components/input';
 import API from '../Logics/request';
 import ValueChanged from '../Logics/valueChanged';
 
-const EditUserInformation = ({ userInformation = {}, setEditUserProfile = () => { } }) => {
+const EditUserInformation = ({ userInformation = {}, setFetchedUserInfo = () => { }, setEditUserProfile = () => { } }) => {
 
-    const [newInformation, setNewInformation] = useState(userInformation);
+    const [newInformation, setNewInformation] = useState(Object.assign({}, userInformation));
 
     function handleSubmit(e) {
         e.preventDefault();
 
         if (ValueChanged({ matchFor: newInformation, matchWith: userInformation })) {
+            console.log("Value Changed")
             API({ method: "put", endpoint: "user/", data: newInformation }).then((res) => {
                 if (res.status === 202) setEditUserProfile(false);
+                setFetchedUserInfo(newInformation)
             }).catch((err) => {
                 console.log(err)
             })
@@ -20,6 +22,10 @@ const EditUserInformation = ({ userInformation = {}, setEditUserProfile = () => 
         } else setEditUserProfile(false)
 
 
+    }
+
+    const onChangeHandle = (e) => {
+        if (newInformation.hasOwnProperty(e.target.name)) setNewInformation({ ...newInformation, [e.target.name]: e.target.value })
     }
 
     return (
@@ -32,11 +38,8 @@ const EditUserInformation = ({ userInformation = {}, setEditUserProfile = () => 
 
                 </div>
                 {/* <section className="inputs"> */}
-                <form onSubmit={handleSubmit} action="" method="post">
-                    <Input name="firstName" value={`${newInformation["firstName"]}`} placeholder="First Name" onChange={(e) => {
-                        if (newInformation.hasOwnProperty(e.target.name)) newInformation[e.target.name] = e.target.value;
-
-                    }} />
+                <form onSubmit={handleSubmit} action="" method="put">
+                    <Input name="firstName" value={`${newInformation["firstName"]}`} placeholder="First Name" onChange={onChangeHandle} />
                     <Input name="lastName" value={`${newInformation["lastName"]}`} placeholder="Last Name" onChange={(e) => {
                         if (newInformation.hasOwnProperty(e.target.name)) newInformation[e.target.name] = e.target.value;
 

@@ -1,9 +1,7 @@
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import BottomBar from './Components/bottomBar';
 import NavBar from './Components/NavBar';
 import useLocalStorage from './Hooks/useLocalStorage';
 import Authentication from './Pages/authentication/authentication';
-import MeetingDisplay from './Pages/dashboard/meetingsDisplay';
 import JoinPage from './Pages/Join/join';
 import "./Static/styles.css";
 

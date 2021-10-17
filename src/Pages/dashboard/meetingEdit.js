@@ -57,7 +57,7 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
                 const finalData = requestData;
                 delete finalData["meeting_hosts"]
                 delete finalData["meeting_speakers"]
-                API({ method: "post", endpoint: `meetings/${superState.meetingData["_id"]}`, data: meetingInfo }).then(res => {
+                API({ method: "put", endpoint: `meetings/${superState.meetingData["_id"]}`, data: meetingInfo }).then(res => {
                     history.push("/d/h");
                 }).catch(err => {
                     // Display Error

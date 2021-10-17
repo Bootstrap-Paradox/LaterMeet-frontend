@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import useFetch from '../Hooks/useFetch';
-import { url } from '../url';
+import { baseURL } from '../url';
 import EditUserInformation from './editUserInformation';
 
 
@@ -11,10 +11,16 @@ const UserInformationDisplay = () => {
 
     const [editUserProfile, setEditUserProfile] = useState(false);
 
-    const { data: userInformation, loading: userInformationLoading, error: userInformtionError } = useFetch({ url: `http://${url}:8001/user/` })
+    const [fetchedUserInfo, setFetchedUserInfo] = useState({});
+
+    const { data: userInformation, loading: userInformationLoading, error: userInformtionError } = useFetch({ url: `${baseURL}/user/` })
+
+    useEffect(() => {
+        setFetchedUserInfo(userInformation)
+    }, [userInformation])
 
     if (editUserProfile) {
-        return (<EditUserInformation userInformation={userInformation} setEditUserProfile={setEditUserProfile} />)
+        return (<EditUserInformation userInformation={fetchedUserInfo} setFetchedUserInfo={setFetchedUserInfo} setEditUserProfile={setEditUserProfile} />)
     }
 
     return (
@@ -25,10 +31,10 @@ const UserInformationDisplay = () => {
                     <div className="profile"><img /></div>
 
                 </div>
-                {userInformation &&
+                {fetchedUserInfo &&
                     <section>
-                        <InlineBlock placeholder="First Name" value={`${userInformation["firstName"]} ${userInformation["lastName"]}`} />
-                        <InlineBlock placeholder="Email" value={userInformation["email"]} />
+                        <InlineBlock placeholder="First Name" value={`${fetchedUserInfo["firstName"]} ${fetchedUserInfo["lastName"]}`} />
+                        <InlineBlock placeholder="Email" value={fetchedUserInfo["email"]} />
 
                     </section>
 

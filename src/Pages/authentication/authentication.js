@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../../Components/NavBar';
-import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
-import { setCookie } from '../../Logics/cookies';
 import API from '../../Logics/request';
 import { setToken } from '../../Logics/token';
 
@@ -41,6 +39,7 @@ const Authentication = (
             if (apiEndpoint === "login") history.push("/")
             // else history.push("") TODO: Enter Code
         }).catch(err => {
+            // console.log(err.response.data)
             return false
         })
 
