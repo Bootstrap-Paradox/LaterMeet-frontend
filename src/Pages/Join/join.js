@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 
 import useFetch from '../../Hooks/useFetch';
@@ -76,10 +76,18 @@ const JoinPage = () => {
 }
 
 const JoinAudio = (props) => {
+
+    const history = useHistory();
+
     return (
-        <button className="btn btn-primary right" onClick={() => {
-            props.videoElement.muted = false
-        }} >Join Audio</button>
+        <>
+            <button className="btn btn-primary right" onClick={() => {
+                props.videoElement.muted = false
+            }} >Join Audio</button>
+
+            <button onClick={() => { setTimeout(() => { history.push("/exit") }, [300]) }} className="btn btn-secondary btn-long left">Leave</button>
+        </>
+
     )
 }
 
