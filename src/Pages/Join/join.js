@@ -63,7 +63,7 @@ const JoinPage = () => {
     return (
         <>
             {meetingLoading && <h1>Loading</h1>}
-            {meetingError && <p>{meetingError.data.msg}</p>}
+            {meetingError && <p>{meetingError}</p>}
             {meetingData &&
                 <div style={{ textAlign: "center" }} className="boundary">
                     <h1 style={{ marginTop: "57px" }}>{meetingData && meetingData["meeting_name"]}</h1>
@@ -117,8 +117,23 @@ const VideoElement = ({ meeting_url, type = "video/mp4" }) => {
                 <source src={meeting_url} type={type} />
                 <p>Something Went Wrong</p>
             </video>
+            <button onClick={() => {
+                const videoElement = document.getElementById("video-component");
+
+                if (videoElement.requestFullscreen) videoElement.requestFullscreen().then(lock());
+                else if (videoElement.webkitRequestFullscreen) videoElement.webkitRequestFullscreen().then(lock());
+                else if (videoElement.msRequestFullscreen) videoElement.msRequestFullscreen().then(lock());
+
+                function lock() {
+                    window.screen.orientation.lock("landscape").then().catch(
+                        (err) => {
+                            // console.log("Landscape is Not Supported on this device")
+                        }
+                    );
+                }
 
 
+            }} className="btn btn-primary btn-long">Full Screen</button>
         </section>
     )
 }
