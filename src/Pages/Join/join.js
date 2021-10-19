@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
 import useLocalStorage from '../../Hooks/useLocalStorage';
 
 import useFetch from '../../Hooks/useFetch';
 import BottomBar from '../../Components/bottomBar';
 import { baseURL } from '../../url';
+import useDimension from '../../Hooks/useDimensions';
 
 
 const JoinPage = () => {
@@ -85,7 +86,7 @@ const JoinAudio = (props) => {
                 props.videoElement.muted = false
             }} >Join Audio</button>
 
-            <button onClick={() => { props.videoElement.remove(); setTimeout(() => { window.location.href = "/exit" }, [300]) }} className="btn btn-secondary btn-long left">Leave</button>
+            <button onClick={() => { setTimeout(() => { window.location.href = "/exit" }, [300]) }} className="btn btn-secondary btn-long left">Leave</button>
         </>
 
     )
@@ -108,11 +109,17 @@ const Description = ({ content = "" }) => {
 
 const VideoElement = ({ meeting_url, type = "video/mp4" }) => {
 
+    const dimensions = useDimension();
+
     return (
-        <video style={{ pointerEvents: "none" }} width="320" height="auto" id="video-component" muted="muted" onWaiting={() => { console.log("hey") }} onTimeUpdate={() => { }} autoPlay={true} >
-            <source src={meeting_url} type={type} />
-            <p>Something Went Wrong</p>
-        </video>
+        <section>
+            <video style={{ pointerEvents: "none", maxHeight: 780 }} width={dimensions.width * 0.90} height="auto" id="video-component" muted="muted" onWaiting={() => { console.log("hey") }} onTimeUpdate={() => { }} autoPlay={true} >
+                <source src={meeting_url} type={type} />
+                <p>Something Went Wrong</p>
+            </video>
+
+
+        </section>
     )
 }
 
