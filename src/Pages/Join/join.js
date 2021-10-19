@@ -85,7 +85,7 @@ const JoinAudio = (props) => {
                 props.videoElement.muted = false
             }} >Join Audio</button>
 
-            <button onClick={() => { setTimeout(() => { history.push("/exit") }, [300]) }} className="btn btn-secondary btn-long left">Leave</button>
+            <button onClick={() => { props.videoElement.remove(); setTimeout(() => { window.location.href = "/exit" }, [300]) }} className="btn btn-secondary btn-long left">Leave</button>
         </>
 
     )
