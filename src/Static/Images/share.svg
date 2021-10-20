@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="ios_share_black_24dp" transform="translate(0.015 -0.423)">
+    <g id="Group_5" data-name="Group 5" transform="translate(0.189 0.628)">
+      <rect id="Rectangle_36" data-name="Rectangle 36" width="24" height="24" transform="translate(-0.204 -0.204)" fill="none"/>
+    </g>
+    <g id="Group_6" data-name="Group 6" transform="translate(4.039 0.923)">
+      <path id="Path_22" data-name="Path 22" d="M16.135,5.045,14.7,6.481,13.091,4.873v11.3h-2V4.873L9.481,6.481,8.045,5.045,12.09,1ZM20.18,10.1V21.225a2.028,2.028,0,0,1-2.022,2.022H6.022A2.022,2.022,0,0,1,4,21.225V10.1A2.015,2.015,0,0,1,6.022,8.079H9.056V10.1H6.022V21.225H18.157V10.1H15.124V8.079h3.034A2.022,2.022,0,0,1,20.18,10.1Z" transform="translate(-4 -1)" fill="#fff"/>
+    </g>
+  </g>
+</svg>
