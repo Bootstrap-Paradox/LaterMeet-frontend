@@ -90,7 +90,8 @@ function useFetch({ url = "", authorized = false, superDispatch = null }) {
                 }
                 console.log(err)
 
-                setError({ msg: err.response.data.msg, status: err.response.status })
+                // setError({ msg: err.response.data.msg, status: err.response.status })
+                setError(err.toString())
             })
             return () => {
                 source.cancel()

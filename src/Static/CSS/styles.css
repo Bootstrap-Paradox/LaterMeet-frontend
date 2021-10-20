@@ -611,6 +611,7 @@ input[type=file] {
 #root {
   background-color: #FAFAFA;
   height: 100vh;
+  overflow-x: hidden;
 }
 
 .boundary {
