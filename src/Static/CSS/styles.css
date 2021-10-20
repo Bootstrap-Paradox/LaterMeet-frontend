@@ -218,6 +218,27 @@ input[type=file] {
   height: 42px;
 }
 
+.floating-icon {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  bottom: 12px;
+  right: 12px;
+  background-color: #2249f5;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.25);
+}
+
 .bottom-bar {
   width: 100vw;
   overflow-y: none;
