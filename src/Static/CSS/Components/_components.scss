@@ -206,3 +206,98 @@
     color: rgba(0,0,0,0.4);
 
 }
+
+.block-component{
+    display: grid;
+    grid-template-areas: 'img info';
+    height: 60%;
+    max-height: 550px;
+    border-radius: 26px;
+    // margin: 3rem;
+    
+    @mixin grid_block {
+        .img{
+            grid-area: img;
+            // position: relative;
+            
+            img{
+                width: 90%;
+                max-width: 760px;
+                position: absolute;
+                bottom: 0;
+
+            }
+    
+        }
+
+        .info{
+            z-index: 10;
+            
+            grid-area: info;
+            text-align: center;
+            h1{
+                color: #e40066;
+                font-family: 'Open Sans';
+                font-size: 81px;
+                margin-top: calc(100vh - 70vh);
+            }
+        }
+    }
+
+    @include mobile{
+        grid-template-areas: 
+        'info'
+        'img';
+    
+        @include grid_block;
+    }
+    
+    @include tablet{
+        grid-template-areas:
+        'info'
+        'img';
+
+        background-color: white;
+        box-shadow: $shadow;
+        height: 90%;
+        margin: 2.9rem;
+        padding: 1rem;
+        padding-bottom: 0;
+        
+        @include grid_block;
+
+        .img{
+            position: relative;
+
+            img{
+                opacity: 0.6;
+            }
+        }
+    }
+
+    @include desktop{
+        grid-template-areas:'img info';
+        grid-template-columns: 60% 1fr;
+        align-items: center;
+        position: relative;
+
+        @include grid_block;
+
+        .info{
+            h1{
+                margin-top: 0;
+            }
+        }
+
+        .img{
+            display:flex;
+            justify-content: center;
+
+            img{
+                position: static;
+                bottom: 0;
+                opacity: 1;
+            }
+        }
+    }
+}
