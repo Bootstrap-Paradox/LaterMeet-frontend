@@ -4,8 +4,12 @@ const Share = async ({ shareData = {} }) => {
         await navigator.share(shareData).then(
             () => { }
         ).catch(() => {
-            // alert("Share is Not Supported! Please contact Support")
+            console.log("hey")
+            navigator.clipboard.writeText(shareData.url)
         })
+    } else {
+        navigator.clipboard.writeText(shareData.url)
+        // Modal to notify that the link has been copied
     }
 }
 
