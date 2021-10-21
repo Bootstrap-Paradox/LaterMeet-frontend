@@ -1,1 +1,3 @@
-# Business Interaction
+# LaterMeet
+
+Platform to Showcase Recorded Meetings Live

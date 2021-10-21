@@ -3,10 +3,11 @@ import NavBar from './Components/NavBar';
 import useLocalStorage from './Hooks/useLocalStorage';
 import Authentication from './Pages/authentication/authentication';
 import JoinPage from './Pages/Join/join';
-import "./Static/styles.css";
+import "./Static/CSS/styles.css";
 
 import DashboardHome from './Pages/dashboard/dashboardHome';
 import EnterCode from './Pages/authentication/enterCode';
+import LeavePage from './Pages/Join/Leave';
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
         <Route path="/jn/:meeting_id" exact >
           <NavBar />
           <JoinPage />
+        </Route>
+        <Route path='/exit'>
+          <NavBar />
+          <LeavePage />
         </Route>
         <Route path="/d" component={DashboardHome} />
         <Route path="/confirmation">

@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import { SuperContext } from './dashboardHome';
+import share from '../../Static/Images/share.svg';
+import Share from '../../Logics/share';
 
 const MeetingView = () => {
 
@@ -36,6 +38,19 @@ const MeetingView = () => {
                         }
                     </div>
                     <button className="btn btn-secondary btn-long-xl" onClick={() => { history.push("/d/edit") }}>Edit Meeting</button>
+                    <div className="floating-icon" onClick={async () => {
+                        // navigator.clipboard.writeText(`https://latermeet.com/jn/${meetingData["_id"]}`)
+                        const shareData = {
+                            title: "LaterMeet",
+                            text: "You are Invited 🎉!\n\nClick on the Link below to Join",
+                            url: `https://latermeet.com/jn/${meetingData["_id"]}`
+                        }
+                        Share({ shareData: shareData });
+
+
+                    }}>
+                        <img src={share} alt="Share Icon" />
+                    </div>
                 </section>
             }
         </>
