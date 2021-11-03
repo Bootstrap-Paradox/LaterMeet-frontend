@@ -10,6 +10,7 @@ import DashboardHome from './Pages/dashboard/dashboardHome';
 import EnterCode from './Pages/authentication/enterCode';
 import LeavePage from './Pages/Join/Leave';
 import HomePage from './Pages/home';
+import LinkView from './Pages/Links/linksView';
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
         <Route exact path="/">
           <NavBar />
           <HomePage />
+        </Route>
+        <Route exact path="/link">
+          <NavBar />
+          <LinkView />
         </Route>
         <Route path="/jn/:meeting_id" exact >
           <NavBar />

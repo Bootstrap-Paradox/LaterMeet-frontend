@@ -137,7 +137,7 @@ input[type=file] {
   height: 74px;
 }
 
-.custom-file-upload .btn {
+.custom-file-upload .btn, .custom-file-upload .link-view .link-btn, .link-view .custom-file-upload .link-btn {
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: button;
@@ -156,7 +156,7 @@ input[type=file] {
   position: relative;
 }
 
-.file-upload .btn, .file-upload span {
+.file-upload .btn, .file-upload .link-view .link-btn, .link-view .file-upload .link-btn, .file-upload span {
   position: absolute;
   margin: 0;
   top: 50%;
@@ -170,7 +170,7 @@ input[type=file] {
   white-space: nowrap;
 }
 
-.file-upload .btn {
+.file-upload .btn, .file-upload .link-view .link-btn, .link-view .file-upload .link-btn {
   right: 0;
 }
 
@@ -178,7 +178,7 @@ input[type=file] {
   font-weight: bold;
 }
 
-.btn {
+.btn, .link-view .link-btn {
   padding: 8px;
   margin: 8px;
   border-radius: 4px;
@@ -295,7 +295,7 @@ input[type=file] {
   font-size: 1.6rem;
 }
 
-.nav-bar .btn {
+.nav-bar .btn, .nav-bar .link-view .link-btn, .link-view .nav-bar .link-btn {
   position: absolute;
   right: 10px;
   color: black;
@@ -638,5 +638,54 @@ input[type=file] {
 .boundary {
   padding: 16px 29px 0 29px;
   position: relative;
+}
+
+.link-view {
+  text-align: center;
+}
+
+.link-view .profile-link-view {
+  margin: 1rem auto;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  border: #d8d8d8 solid 1px;
+  background-color: white;
+}
+
+.link-view .profile-link-view img {
+  height: 125px;
+  width: 125px;
+  border-radius: 50%;
+  background-size: auto;
+}
+
+.link-view .link-btn {
+  font-size: 1.1rem;
+  color: white;
+  background-image: -webkit-gradient(linear, left top, right top, from(#887EFF), to(#A203A2));
+  background-image: linear-gradient(90deg, #887EFF, #A203A2);
+  margin: 0.5rem auto;
+  width: 250px;
+  height: 50px;
+}
+
+.link-view .link-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  justify-self: center;
+  margin: 0 auto;
+  text-align: center;
+  justify-items: center;
+}
+
+.username {
+  color: #ccc;
+  margin-bottom: 42px;
 }
 /*# sourceMappingURL=styles.css.map */
