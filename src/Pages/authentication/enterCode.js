@@ -26,8 +26,7 @@ const EnterCode = () => {
                                     code: code
                                 }
                             }).then((res) => {
-                                console.log(res.data)
-                                if (setToken(res.data)) {
+                                if (setToken({ tokenData: res.data })) {
                                     history.push("/d/h")
                                 }
                                 else {
