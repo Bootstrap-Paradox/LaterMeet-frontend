@@ -1,0 +1,44 @@
+.modal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: royalblue;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  width: 80%;
+  max-width: 280px;
+  min-height: 62px;
+  color: white;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 8px;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+
+.modal .modal-content {
+  margin: 1rem;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.modal .modal-title {
+  font-size: 1.35rem;
+  color: white;
+}
+
+.modal .modal-msg {
+  margin-top: 1rem;
+}
+
+.modal-block {
+  padding: 0 10px;
+}
+/*# sourceMappingURL=modal.css.map */

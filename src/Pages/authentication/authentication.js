@@ -49,7 +49,7 @@ const Authentication = (
 
     return (
         <>
-            <NavBar />
+
             <h1 className="title">{title}</h1>
             <p className="description">{description}</p>
 
