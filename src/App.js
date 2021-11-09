@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import NavBar from './Components/NavBar';
 import useLocalStorage from './Hooks/useLocalStorage';
@@ -8,6 +9,7 @@ import "./Static/CSS/styles.css";
 import DashboardHome from './Pages/dashboard/dashboardHome';
 import EnterCode from './Pages/authentication/enterCode';
 import LeavePage from './Pages/Join/Leave';
+import HomePage from './Pages/home';
 
 function App() {
   return (
@@ -15,7 +17,7 @@ function App() {
       <Switch>
         <Route exact path="/">
           <NavBar />
-          <div className="boundary" style={{ textAlign: 'center' }}><h1>Coming Soon</h1></div>
+          <HomePage />
         </Route>
         <Route path="/jn/:meeting_id" exact >
           <NavBar />
