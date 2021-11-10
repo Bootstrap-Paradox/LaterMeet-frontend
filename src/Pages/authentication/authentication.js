@@ -57,7 +57,7 @@ const Authentication = (
             if (apiEndpoint === "login") history.push("/")
             // else history.push("") TODO: Enter Code
         }).catch(err => {
-            console.log(err.response.data)
+            // console.log(err.response.data)
             modalDispatch({ type: "SHOW_MODAL", payload: { id: new Date().toString(), title: "Authentication Error", msg: err.response.data["message"], status: "danger", pop: true } })
 
             return false
@@ -145,7 +145,7 @@ const PasswordSpecifier = ({ passwordData = {} }) => {
                             fontWeight: "bold"
                         }
                     }>{passwordData["type"]}</p>
-                    <meter value={passwordData["value"]} min={0} max={100} ></meter>
+                    <meter value={passwordData["value"]} min={0} max={100} />
                 </div>
             }
         </>

@@ -24,7 +24,9 @@ $colors: (
 @each $sign, $color in $colors{
 
     .meter-#{$sign}{
-    meter::-webkit-meter-optimum-value{
+        margin-bottom: 2rem;
+        margin-top:-1rem;
+        meter::-webkit-meter-optimum-value{
 
             background-color: map-get($colors, $sign);
         }
