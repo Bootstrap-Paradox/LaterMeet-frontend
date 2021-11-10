@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import NavBar from '../../Components/NavBar';
 import { useHistory } from 'react-router';
 import API from '../../Logics/request';
 import { setToken } from '../../Logics/token';
+import { ModalContext } from '../../App';
 
 const Authentication = (
     {
@@ -12,6 +13,8 @@ const Authentication = (
         apiEndpoint = ""
     }
 ) => {
+
+    const { modalState, modalDispatch } = useContext(ModalContext);
 
     const history = useHistory();
 
@@ -24,13 +27,18 @@ const Authentication = (
     async function onHandleSubmit(e) {
         e.preventDefault()
         if ((reqData.hasOwnProperty("password") && reqData.hasOwnProperty("confirmPassword")) && (
-            reqData["password"] !== reqData["confirmPassword"] || reqData["password"] === "" || reqData["confirmPassword"] === ""
+            reqData["password"] !== reqData["confirmPassword"]
         )) {
             // do Something to abort Auth
+            modalDispatch({ type: "SHOW_MODAL", payload: { id: new Date().toString(), title: "Authentication Error", msg: "Passwords Don't Match", status: "info", pop: true } })
             return false
         }
 
-        if (reqData.hasOwnProperty("password") && reqData["password"] === "") return false
+        if (reqData.hasOwnProperty("password") && reqData["password"] === "") {
+            modalDispatch({ type: "SHOW_MODAL", payload: { id: new Date().toString(), title: "Authentication Error", msg: "Passwords Cannot be Empty", status: "info", pop: true } })
+            return false
+
+        }
         API({ method: "post", endpoint: apiEndpoint, data: reqData }).then(res => {
             if (apiEndpoint === "signup") history.push("/confirmation")
             if (res.data.hasOwnProperty("access_token")) {
@@ -40,6 +48,8 @@ const Authentication = (
             // else history.push("") TODO: Enter Code
         }).catch(err => {
             // console.log(err.response.data)
+            modalDispatch({ type: "SHOW_MODAL", payload: { id: new Date().toString(), title: "Authentication Error", msg: "Something went wrong", status: "danger", pop: true } })
+
             return false
         })
 

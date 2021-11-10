@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import './modal.css';
+import { ReactComponent as Close } from '../../Static/Images/close.svg';
 
 
 function ModalReducer(state, action) {
@@ -14,10 +15,15 @@ function ModalReducer(state, action) {
 
         case "POP_MODAL":
             let newModalList = state.modalList.filter(list => list.id !== action.payload)
+
             return {
                 ...state,
                 modalList: newModalList,
+                showModal: newModalList.length > 0 ? true : false,
             }
+
+        default:
+            throw new Error("Modal Reducer Type Does not exist")
     }
 
 }
@@ -51,14 +57,14 @@ const useModal = () => {
 const Modal = ({ content = {}, dispatch = () => { } }) => {
     return (
         <>
-            <div className="modal animate__animated animate__bounceInRight">
+            <div className={`modal animate__animated animate__bounceInRight modal-${content["status"]}`}>
                 <div className="modal-content">
                     <h3 className="modal-title">{content["title"]}</h3>
                     <p className="modal-msg">{content["msg"]}</p>
                 </div>
                 <span onClick={() => {
                     dispatch({ type: "POP_MODAL", payload: content["id"] })
-                }} className="close">X</span>
+                }} className="close"><Close /></span>
             </div>
         </>
     )
@@ -69,8 +75,13 @@ const ModalBlock = ({ modalState, modalDispatch }) => {
     return (
         <div className="modal-block">
             {
-                modalState.modalList.length > 0 &&
+                modalState.showModal &&
                 modalState.modalList.map((list, index) => {
+                    if (list.pop) {
+                        setTimeout(() => {
+                            modalDispatch({ type: "POP_MODAL", payload: list.id })
+                        }, 5000)
+                    }
                     return <Modal key={list["id"]} content={list} dispatch={modalDispatch} />
                 })
             }

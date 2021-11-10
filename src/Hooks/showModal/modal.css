@@ -31,14 +31,42 @@
 
 .modal .modal-title {
   font-size: 1.35rem;
-  color: white;
 }
 
 .modal .modal-msg {
   margin-top: 1rem;
 }
 
+.modal .close {
+  color: white;
+}
+
+.modal-danger {
+  background-color: #ff5555;
+}
+
+.modal-danger > * {
+  color: white;
+}
+
+.modal-warning {
+  background-color: #ffee21;
+}
+
+.modal-warning > * {
+  color: black;
+}
+
+.modal-info {
+  background-color: #2c6eeb;
+}
+
+.modal-info > * {
+  color: white;
+}
+
 .modal-block {
   padding: 0 10px;
+  height: auto;
 }
 /*# sourceMappingURL=modal.css.map */

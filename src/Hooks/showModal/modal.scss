@@ -23,15 +23,34 @@
 
     .modal-title{
         font-size: 1.35rem;
-        color: white;
     }
 
     .modal-msg{
         margin-top: 1rem;
     }
 
+    .close{
+        color:white;
+    }
+
+}
+
+$color: (
+    danger: (background-color:rgba(255, 85, 85, 1), color: white),
+    warning: (background-color:rgba(255, 238, 33, 1), color: black),
+    info: (background-color:rgba(44, 110, 235, 1), color: white),
+);
+
+@each $sign, $colors in $color{
+    .modal-#{$sign}{
+        background-color: map-get($colors, "background-color");
+        &> *{
+            color: map-get($colors, "color");
+        }
+    }
 }
 
 .modal-block{
     padding: 0 10px;
+    height:auto;
 }
