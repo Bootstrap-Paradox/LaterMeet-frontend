@@ -30,7 +30,7 @@ const Authentication = (
             reqData["password"] !== reqData["confirmPassword"]
         )) {
             // do Something to abort Auth
-            modalDispatch({ type: "SHOW_MODAL", payload: { id: new Date().toString(), title: "Authentication Error", msg: "Passwords Don't Match", status: "info", pop: true } })
+            modalDispatch({ type: "SHOW_MODAL", payload: { id: new Date().toString(), title: "Authentication Error", msg: "Passwords Don't Match", status: "danger", pop: true } })
             return false
         }
 

@@ -10,13 +10,14 @@ import DashboardHome from './Pages/dashboard/dashboardHome';
 import EnterCode from './Pages/authentication/enterCode';
 import LeavePage from './Pages/Join/Leave';
 import HomePage from './Pages/home';
-import useModal, { Modal, ModalBlock } from './Hooks/showModal/useShowModal';
+import useModal, { ModalBlock } from './Hooks/showModal/useShowModal 2';
+
 
 const ModalContext = createContext();
 
 
 function App() {
-  const { state: modalState, dispatch: modalDispatch } = useModal()
+  const { state: modalState, dispatch: modalDispatch } = useModal();
 
   return (
     <ModalContext.Provider value={{ modalState, modalDispatch }}>

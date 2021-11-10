@@ -37,16 +37,16 @@
   margin-top: 1rem;
 }
 
-.modal .close {
-  color: white;
-}
-
 .modal-danger {
   background-color: #ff5555;
 }
 
 .modal-danger > * {
   color: white;
+}
+
+.modal-danger svg {
+  fill: white;
 }
 
 .modal-warning {
@@ -57,12 +57,20 @@
   color: black;
 }
 
+.modal-warning svg {
+  fill: black;
+}
+
 .modal-info {
   background-color: #2c6eeb;
 }
 
 .modal-info > * {
   color: white;
+}
+
+.modal-info svg {
+  fill: white;
 }
 
 .modal-block {

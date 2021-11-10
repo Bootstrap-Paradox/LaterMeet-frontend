@@ -29,9 +29,12 @@
         margin-top: 1rem;
     }
 
-    .close{
-        color:white;
-    }
+    // .close{
+    //     &>svg{
+    //         fill:white;
+
+    //     }
+    // }
 
 }
 
@@ -46,6 +49,10 @@ $color: (
         background-color: map-get($colors, "background-color");
         &> *{
             color: map-get($colors, "color");
+        }
+
+        svg{
+            fill: map-get($colors, "color");
         }
     }
 }
