@@ -1,69 +1,84 @@
+import React, { useEffect, useContext, createContext } from 'react';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import BottomBar from './Components/bottomBar';
 import NavBar from './Components/NavBar';
 import useLocalStorage from './Hooks/useLocalStorage';
 import Authentication from './Pages/authentication/authentication';
-import MeetingDisplay from './Pages/dashboard/meetingsDisplay';
 import JoinPage from './Pages/Join/join';
-import "./Static/styles.css";
+import "./Static/CSS/styles.css";
 
 import DashboardHome from './Pages/dashboard/dashboardHome';
 import EnterCode from './Pages/authentication/enterCode';
+import LeavePage from './Pages/Join/Leave';
+import HomePage from './Pages/home';
+import useModal, { ModalBlock } from './Hooks/showModal/useShowModal 2';
+
+
+const ModalContext = createContext();
+
 
 function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <NavBar />
-          <div className="boundary"><h1>Hey</h1></div>
-        </Route>
-        <Route path="/jn/:meeting_id" exact >
-          <NavBar />
-          <JoinPage />
-        </Route>
-        <Route path="/d" component={DashboardHome} />
-        <Route path="/confirmation">
-          <EnterCode />
+  const { state: modalState, dispatch: modalDispatch } = useModal();
 
-        </Route>
-        <Route path="/signup">
-          <Authentication title="SignUp" description="Accompany Audience even while away" apiEndpoint="signup" inputs={
-            {
-              "Email": {
-                type: "text",
-                name: "email",
-                localValue: [useLocalStorage, "email", ""],
-              },
-              "Password": {
-                type: "password",
-                name: "password",
-              },
-              "Confirm Password": {
-                type: "password",
-                name: "confirmPassword",
+  return (
+    <ModalContext.Provider value={{ modalState, modalDispatch }}>
+
+      <Router>
+        <NavBar />
+        <ModalBlock modalState={modalState} modalDispatch={modalDispatch} />
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <Route path="/jn/:meeting_id" exact >
+            <JoinPage />
+          </Route>
+          <Route path='/exit'>
+            <LeavePage />
+          </Route>
+          <Route path="/d" component={DashboardHome} />
+          <Route path="/confirmation">
+            <EnterCode />
+
+          </Route>
+          <Route path="/signup">
+            <Authentication title="SignUp" description="Accompany Audience even while away" apiEndpoint="signup" inputs={
+              {
+                "Email": {
+                  type: "text",
+                  name: "email",
+                  localValue: [useLocalStorage, "email", ""],
+                },
+                "Password": {
+                  type: "password",
+                  name: "password",
+                },
+                "Confirm Password": {
+                  type: "password",
+                  name: "confirmPassword",
+                }
               }
             }
-          }
-          />
-        </Route>
-        <Route path="/login">
-          <Authentication title="Login" description="Participants have been waiting for you" apiEndpoint="login" inputs={
-            {
-              "Email": {
-                name: "email",
-                localValue: [useLocalStorage, "email", ""],
-              },
-              "Password": {
-                name: "password",
-                type: "password"
+            />
+          </Route>
+          <Route path="/login">
+            <Authentication title="Login" description="Participants have been waiting for you" apiEndpoint="login" inputs={
+              {
+                "Email": {
+                  name: "email",
+                  localValue: [useLocalStorage, "email", ""],
+                },
+                "Password": {
+                  name: "password",
+                  type: "password"
+                }
               }
-            }
-          } />
-        </Route>
-      </Switch>
-    </Router>
+            } />
+          </Route>
+        </Switch>
+      </Router>
+    </ModalContext.Provider>
   );
 }
 
 export default App;
+export { ModalContext };

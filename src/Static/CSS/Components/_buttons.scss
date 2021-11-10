@@ -28,3 +28,17 @@
     height: 42px;
 }
 
+
+.floating-icon{
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    bottom: 12px;
+    right: 12px;
+    background-color: getColor(primary);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: $shadow;
+}

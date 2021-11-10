@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import useFetch from '../../Hooks/useFetch';
 import { SuperContext } from './dashboardHome';
-import { url } from '../../url';
+import { baseURL } from '../../url';
 import { Link } from 'react-router-dom';
 
 const MeetingDisplay = () => {
@@ -10,7 +10,7 @@ const MeetingDisplay = () => {
     const [redirect, setRedirect] = useState(false);
     const history = useHistory()
 
-    const { data: meetings, loading: meetingsLoading, error: meetingsError } = useFetch({ url: `http://${url}:8001/meetings/` })
+    const { data: meetings, loading: meetingsLoading, error: meetingsError } = useFetch({ url: `${baseURL}/meetings/` })
 
     useEffect(() => {
         // if (redirect) return <Redirect to="/d/#view" />
@@ -18,7 +18,7 @@ const MeetingDisplay = () => {
     }, [redirect])
 
     useEffect(() => {
-        if (meetingsError && meetingsError.status === 404) {
+        if (meetingsError) {
             history.push("/d/new")
         }
     }, [meetingsError])
