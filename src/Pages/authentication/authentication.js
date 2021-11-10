@@ -57,8 +57,8 @@ const Authentication = (
             if (apiEndpoint === "login") history.push("/")
             // else history.push("") TODO: Enter Code
         }).catch(err => {
-            // console.log(err.response.data)
-            modalDispatch({ type: "SHOW_MODAL", payload: { id: new Date().toString(), title: "Authentication Error", msg: "Something went wrong", status: "danger", pop: true } })
+            console.log(err.response.data)
+            modalDispatch({ type: "SHOW_MODAL", payload: { id: new Date().toString(), title: "Authentication Error", msg: err.response.data["message"], status: "danger", pop: true } })
 
             return false
         })
