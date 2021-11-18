@@ -633,38 +633,10 @@ input[type=file] {
   background-color: #FAFAFA;
   height: 100vh;
   overflow-x: hidden;
-  position: relative;
 }
 
 .boundary {
   padding: 16px 29px 0 29px;
   position: relative;
-}
-
-.meter-strong {
-  margin-bottom: 2rem;
-  margin-top: -1rem;
-}
-
-.meter-strong meter::-webkit-meter-optimum-value {
-  background-color: #1FEF9F;
-}
-
-.meter-medium {
-  margin-bottom: 2rem;
-  margin-top: -1rem;
-}
-
-.meter-medium meter::-webkit-meter-optimum-value {
-  background-color: #1F77EF;
-}
-
-.meter-weak {
-  margin-bottom: 2rem;
-  margin-top: -1rem;
-}
-
-.meter-weak meter::-webkit-meter-optimum-value {
-  background-color: #FA3737;
 }
 /*# sourceMappingURL=styles.css.map */

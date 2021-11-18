@@ -7,31 +7,11 @@
     background-color: #FAFAFA;
     height: 100vh;
     overflow-x:hidden;
-    position: relative;
 }
 
 .boundary{
     padding: 16px 29px 0 29px;
     position:relative;
-}
-
-$colors: (
-    strong: #1FEF9F,
-    medium: #1F77EF,
-    weak: #FA3737,
-);
-
-@each $sign, $color in $colors{
-
-    .meter-#{$sign}{
-        margin-bottom: 2rem;
-        margin-top:-1rem;
-        meter::-webkit-meter-optimum-value{
-
-            background-color: map-get($colors, $sign);
-        }
-    }
-
 }
 
 // video::-webkit-media-controls{

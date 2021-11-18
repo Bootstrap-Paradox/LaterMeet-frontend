@@ -9,6 +9,7 @@ const EnterCode = () => {
     const [code, setCode] = useState('');
     return (
         <>
+            <NavBar />
             <section >
                 <h1 className="title">Confirm</h1>
                 <p className="description">One Last Step</p>
@@ -25,7 +26,8 @@ const EnterCode = () => {
                                     code: code
                                 }
                             }).then((res) => {
-                                if (setToken({ tokenData: res.data })) {
+                                console.log(res.data)
+                                if (setToken(res.data)) {
                                     history.push("/d/h")
                                 }
                                 else {
