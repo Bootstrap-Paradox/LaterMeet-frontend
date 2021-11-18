@@ -9,6 +9,7 @@ export default function fetchToken() {
 }
 
 export const setToken = ({ tokenData = {} }) => {
+    console.log(tokenData)
     setCookie("access_token", tokenData["access_token"])
     return true;
 
