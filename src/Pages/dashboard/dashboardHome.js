@@ -37,25 +37,20 @@ export default ({ match }) => {
             <Router>
                 <Switch>
                     <Route exact path={`${match.path}/h`}>
-                        <NavBar />
                         <MeetingDisplay />
                     </Route>
                     <Route path={`${match.path}/view`} >
 
-                        <NavBar />
                         <MeetingView />
                     </Route>
                     <Route path={`${match.path}/edit`}>
-                        <NavBar />
                         <MeetingEdit />
 
                     </Route>
                     <Route path={`${match.path}/user`} exact>
-                        <NavBar />
                         <UserInformationDisplay />
                     </Route>
                     <Route path={`${match.path}/new`}>
-                        <NavBar />
                         <MeetingEdit CreateMeeting={true} />
                     </Route>
                 </Switch>
