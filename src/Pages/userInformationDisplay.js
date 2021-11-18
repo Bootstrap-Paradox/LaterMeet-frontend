@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import useFetch from '../Hooks/useFetch';
 import { baseURL } from '../url';
 import EditUserInformation from './editUserInformation';
+import { InlineBlock } from '../Components/components';
 
 
 const UserInformationDisplay = () => {
@@ -51,13 +52,6 @@ const UserInformationDisplay = () => {
     )
 }
 
-const InlineBlock = (props) => {
-    return (
-        <div className="box block">
-            <h4 className="faded">{props.placeholder}</h4>
-            <h4>{props.value}</h4>
-        </div>
-    )
-}
+
 
 export default UserInformationDisplay;
