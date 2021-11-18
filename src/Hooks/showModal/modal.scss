@@ -1,0 +1,63 @@
+.modal{
+    display: flex;
+    background-color: royalblue;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    width: 80%;
+    max-width: 280px;
+    min-height: 62px;
+    // height: max-content;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    padding: 0 1rem;
+    margin: 0 auto;
+
+    .modal-content{
+        margin: 1rem;
+        height: fit-content;
+    }
+
+    .modal-title{
+        font-size: 1.35rem;
+    }
+
+    .modal-msg{
+        margin-top: 1rem;
+    }
+
+    // .close{
+    //     &>svg{
+    //         fill:white;
+
+    //     }
+    // }
+
+}
+
+$color: (
+    danger: (background-color:rgba(255, 85, 85, 1), color: white),
+    warning: (background-color:rgba(255, 238, 33, 1), color: black),
+    info: (background-color:rgba(44, 110, 235, 1), color: white),
+);
+
+@each $sign, $colors in $color{
+    .modal-#{$sign}{
+        background-color: map-get($colors, "background-color");
+        &> *{
+            color: map-get($colors, "color");
+        }
+
+        svg{
+            fill: map-get($colors, "color");
+        }
+    }
+}
+
+.modal-block{
+    padding: 0 10px;
+    height:auto;
+}
