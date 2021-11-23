@@ -10,21 +10,147 @@ const InlineBlock = (props) => {
     )
 }
 
+const NewTimingComponent = ({ setMeetingInfo, meetingInfo }) => {
+
+    const [timing, setTiming] = useState();
+    const [finalTiming, setFinalTiming] = useState();
+
+
+}
+
+function conversion({ toConvert = new Date(), time = false, utc = false }) {
+
+    if (utc) {
+
+        if (time) {
+            return toConvert.toISOString().split(":").splice(0, 2).join(":");
+
+        } else {
+            return toConvert.toISOString().split("T")[0];
+
+        }
+
+    } else {
+
+        const fetchDate = () => toConvert.toLocaleDateString().split("/").reverse().join("-");
+
+        if (time) {
+            return `${fetchDate()}T${toConvert.toLocaleTimeString().split(":").splice(0, 2).join(":")}`;
+        } else {
+            return fetchDate();
+        }
+    }
+}
+
+class Timing {
+    constructor({ date = new Date(), meta_data = null }) {
+        if (meta_data) {
+            // console.log(meta_data)
+            this.timing = {
+                start_time: this.fromMetaData(meta_data["start_time"]),
+                end_date: this.fromMetaData(meta_data["end_date"])
+            }
+        }
+        this.date = date;
+    }
+
+    toLocaleDateString() {
+        return conversion({ toConvert: this.date })
+    }
+
+    toLocaleTimeString() {
+        return conversion({ toConvert: this.date, time: true })
+    }
+
+    toUTCDateString() {
+        return conversion({ toConvert: this.date, utc: true })
+    }
+
+    toUTCTimeString() {
+        return conversion({ toConvert: this.date, time: true, utc: true })
+    }
+
+    toTimingString() {
+        return {
+            start_time: conversion({ toConvert: this.timing["start_time"], time: true }),
+            end_date: conversion({ toConvert: this.timing["end_date"] }),
+        }
+    }
+
+    toTimingLocalString() {
+        // console.log(this.timing["start_time"])
+    }
+
+    toUTCTimingString() {
+        return {
+            start_time: conversion({ toConvert: this.timing["start_time"], time: true, utc: true }),
+            end_date: conversion({ toConvert: this.timing["end_date"], utc: true }),
+        }
+    }
+    // Production Data to be updated in the database
+
+    // productionReady(){
+
+    //     let data = {
+    //         year: undefined,
+    //         month: undefined,
+    //         day: undefined,
+    //         hour: undefined,
+    //         minute: undefined,
+    //     }
+
+
+    // }
+
+    // conversion from Stored Meta_data to Date object
+    fromMetaData(meta_data) {
+
+        function safe(data) {
+            return data < 10 ? `0${data}` : data.toString();
+        }
+
+        if (Object.keys(meta_data).length > 4 && meta_data["hour"]) {
+            // console.log("What is the hour")
+            // console.log(meta_data["hour"])
+            return new Date(Date.UTC(
+                meta_data["year"].toString(),
+                safe(meta_data["month"] - 1),
+                safe(meta_data["day"]),
+                safe(meta_data["hour"]),
+                safe(meta_data["minute"])
+            ))
+        } else {
+            return new Date(Date.UTC(
+                meta_data["year"].toString(),
+                safe(meta_data["month"] - 1),
+                safe(meta_data["day"]),
+            ))
+
+        }
+    }
+}
+
 const TimingComponent = ({ setMeetingInfo, meetingInfo }) => {
 
-    const currentTime = new Date()
-    const currentStartTime = `${currentTime.getFullYear()}-${currentTime.getMonth() + 1}-${currentTime.getDate() !== 0 ? currentTime.getDate() <= 9 ? `0${currentTime.getDate()}` : currentTime.getDate() : "01"}T00:00`
-    const initialExpiryTime = new Date(currentTime.getTime() + 60 * 24 * 30 * 60000)
-    const endTime = `${initialExpiryTime.getFullYear()}-${initialExpiryTime.getMonth() + 1}-${initialExpiryTime.getDate() !== 0 ? initialExpiryTime.getDate() <= 9 ? `0${initialExpiryTime.getDate()}` : initialExpiryTime.getDate() : "01"}`
+    // const currentTime = new Date()
+    // const currentStartTime = `${currentTime.getFullYear()}-${currentTime.getMonth() + 1}-${currentTime.getDate() !== 0 ? currentTime.getDate() <= 9 ? `0${currentTime.getDate()}` : currentTime.getDate() : "01"}T00:00`
+    // const initialExpiryTime = new Date(currentTime.getTime() + 60 * 24 * 30 * 60000)
+    // const endTime = `${initialExpiryTime.getFullYear()}-${initialExpiryTime.getMonth() + 1}-${initialExpiryTime.getDate() !== 0 ? initialExpiryTime.getDate() <= 9 ? `0${initialExpiryTime.getDate()}` : initialExpiryTime.getDate() : "01"}`
 
     const [timing, setTiming] = useState({
-        start_time: convertToValue(meetingInfo["meeting_timings"]["start_time"]),
-        end_date: convertToValue(meetingInfo["meeting_timings"]["end_date"])
+        start_time: "",
+        end_date: ""
     });
     useEffect(() => {
-        console.log("What is the Timing")
-        console.log(timing)
-    })
+        // console.log("What is the Timing")
+        // console.log(timing)
+        // console.log(conversion({ toConvert: new Date(), time: true }));
+        const fetchedTiming = new Timing({ meta_data: meetingInfo["meeting_timings"] })
+        setTiming({
+            start_time: fetchedTiming.toTimingString()["start_time"],
+            end_date: fetchedTiming.toTimingString()["end_date"]
+        })
+    }, [])
 
     // Start Date
     // Start Time
@@ -47,6 +173,7 @@ const TimingComponent = ({ setMeetingInfo, meetingInfo }) => {
         <>
             <div>
                 <input name="startTime" onChange={(e) => {
+                    // console.log(e.target.value)
                     setTiming({
                         ...timing,
                         start_time: e.target.value
@@ -55,6 +182,7 @@ const TimingComponent = ({ setMeetingInfo, meetingInfo }) => {
                     // console.log(pat.test("hithere"))
                 }} type="datetime-local" value={timing["start_time"]} />
                 <input onChange={(e) => {
+                    console.log(e.target.value)
                     setTiming({
                         ...timing,
                         end_date: e.target.value
@@ -70,16 +198,6 @@ function safe(data) {
     return data < 10 ? `0${data}` : data
 }
 
-function convertToValue(meta_data) {
-    if (Object.keys(meta_data).length > 4 && meta_data["hour"]) {
-        return `${safe(meta_data["year"])}-${meta_data["month"]}-${safe(meta_data["day"])}T${safe(meta_data["hour"])}:${safe(meta_data["minute"])}`
-
-    } else {
-        return `${safe(meta_data["year"])}-${meta_data["month"] == 0 ? "01" : safe(meta_data["month"])}-${safe(meta_data["day"])}`
-
-
-    }
-}
 
 function parseTime({ toParse = "" }) {
 
@@ -98,7 +216,7 @@ function parseTime({ toParse = "" }) {
 
     function convertToUTC(StringConvergent) {
 
-        console.log("String Convergent")
+        // console.log("String Convergent")
         let currentUTC;
         if (StringConvergent.length > 4) {
 
@@ -117,7 +235,7 @@ function parseTime({ toParse = "" }) {
             )
 
         }
-        console.log(currentUTC)
+        // console.log(currentUTC)
 
         const newUTCTime = StringConvergent.length > 4 ? `${currentUTC.getUTCFullYear()}-${currentUTC.getUTCMonth()}-${currentUTC.getUTCDate() !== 0 ? currentUTC.getUTCDate() <= 9 ? `0${currentUTC.getUTCDate()}` : currentUTC.getUTCDate() : "01"}T${currentUTC.getUTCHours() <= 9 ? `0${currentUTC.getUTCHours()}` : currentUTC.getUTCHours()}:${currentUTC.getUTCMinutes <= 9 ? `0${currentUTC.getUTCMinutes()}` : currentUTC.getUTCMinutes()}` : `${currentUTC.getUTCFullYear()}-${currentUTC.getUTCMonth()}-${currentUTC.getUTCDate() !== 0 ? currentUTC.getUTCDate() <= 9 ? `0${currentUTC.getUTCDate()}` : currentUTC.getUTCDate() : "01"}`
 
