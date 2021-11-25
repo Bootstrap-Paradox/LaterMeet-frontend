@@ -146,6 +146,7 @@ const TimingComponent = ({ setMeetingInfo, meetingInfo }) => {
         // console.log(timing)
         // console.log(conversion({ toConvert: new Date(), time: true }));
         const fetchedTiming = new Timing({ meta_data: meetingInfo["meeting_timings"] })
+
         setTiming({
             start_time: fetchedTiming.toTimingString()["start_time"],
             end_date: fetchedTiming.toTimingString()["end_date"]
@@ -165,6 +166,7 @@ const TimingComponent = ({ setMeetingInfo, meetingInfo }) => {
                 end_date: parseTime({ toParse: timing["end_date"] })
             }
         })
+        // console.log(parseTime({ toParse: timing["start_time"] }))
 
     }, [timing])
 
@@ -235,9 +237,10 @@ function parseTime({ toParse = "" }) {
             )
 
         }
-        // console.log(currentUTC)
+        console.log(currentUTC)
+        console.log(currentUTC.getMonth() + 1)
 
-        const newUTCTime = StringConvergent.length > 4 ? `${currentUTC.getUTCFullYear()}-${currentUTC.getUTCMonth()}-${currentUTC.getUTCDate() !== 0 ? currentUTC.getUTCDate() <= 9 ? `0${currentUTC.getUTCDate()}` : currentUTC.getUTCDate() : "01"}T${currentUTC.getUTCHours() <= 9 ? `0${currentUTC.getUTCHours()}` : currentUTC.getUTCHours()}:${currentUTC.getUTCMinutes <= 9 ? `0${currentUTC.getUTCMinutes()}` : currentUTC.getUTCMinutes()}` : `${currentUTC.getUTCFullYear()}-${currentUTC.getUTCMonth()}-${currentUTC.getUTCDate() !== 0 ? currentUTC.getUTCDate() <= 9 ? `0${currentUTC.getUTCDate()}` : currentUTC.getUTCDate() : "01"}`
+        const newUTCTime = StringConvergent.length > 4 ? `${currentUTC.getMonth() == 0 ? currentUTC.getUTCFullYear() - 1 : currentUTC.getUTCFullYear()}-${currentUTC.getUTCMonth() == 0 ? 12 : currentUTC.getUTCMonth()}-${currentUTC.getUTCDate() !== 0 ? currentUTC.getUTCDate() <= 9 ? `0${currentUTC.getUTCDate()}` : currentUTC.getUTCDate() : "01"}T${currentUTC.getUTCHours() <= 9 ? `0${currentUTC.getUTCHours()}` : currentUTC.getUTCHours()}:${currentUTC.getUTCMinutes <= 9 ? `0${currentUTC.getUTCMinutes()}` : currentUTC.getUTCMinutes()}` : `${currentUTC.getMonth() == 0 ? currentUTC.getUTCFullYear() - 1 : currentUTC.getUTCFullYear()}-${currentUTC.getUTCMonth() == 0 ? 12 : currentUTC.getUTCMonth()}-${currentUTC.getUTCDate() !== 0 ? currentUTC.getUTCDate() <= 9 ? `0${currentUTC.getUTCDate()}` : currentUTC.getUTCDate() : "01"}`
 
         return regex(newUTCTime)
 

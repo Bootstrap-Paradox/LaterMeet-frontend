@@ -17,7 +17,11 @@ const JoinPage = () => {
     const { data: meetingData, loading: meetingLoading, error: meetingError } = useFetch({ url: `${baseURL}/meetings/join/${meeting_id}` })
 
 
-    const [inter, setInter] = useState(true);
+
+    const [onGoingMeeting, setOnGoingMeeting] = useState({
+        msg: "Meeting Yet to Start",
+        show: false,
+    });
 
     var checkLoop = meetingData && videoElement && setInterval(() => {
         if (meetingData && videoElement) {
@@ -38,11 +42,11 @@ const JoinPage = () => {
                 else if (videoElement.paused) {
                     videoElement.play()
                 }
-                // if (meetingStartTime + (videoElement.duration * 1000) <= new Date().getTime()) {
-                //     // The Meeting Has Ended
-                //     if (videoElement) videoElement.pause();
+                if (meetingStartTime + (videoElement.duration * 1000) <= new Date().getTime()) {
+                    // The Meeting Has Ended
+                    if (videoElement) videoElement.pause();
 
-                // }
+                }
 
                 if ((videoElement.currentTime > (currentDiff + 10) || videoElement.currentTime < (currentDiff - 10)) && videoElement.currentTime < videoElement.duration) {
                     videoElement.currentTime = currentDiff;
@@ -72,6 +76,7 @@ const JoinPage = () => {
             {meetingData &&
                 <div style={{ textAlign: "center" }} className="boundary">
                     <h1 style={{ marginTop: "57px" }}>{meetingData && meetingData["meeting_name"]}</h1>
+
                     <VideoElement meeting_url={meetingData["meeting_url"]} />
                     <Description content={meetingData["meeting_description"]} />
                 </div>
