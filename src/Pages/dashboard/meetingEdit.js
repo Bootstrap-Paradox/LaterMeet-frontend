@@ -95,7 +95,7 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
                     </>
                     }
                     <MeetingEditTextArea placeholder="Description" fieldData={["meeting_description", meetingInfo["meeting_description"]]} setMeetingInfo={setMeetingInfo} />
-                    {!CreateMeeting && <TimingComponent setMeetingInfo={setMeetingInfo} meetingInfo={meetingInfo} />}
+                    {!CreateMeeting && meetingInfo && <TimingComponent setMeetingInfo={setMeetingInfo} meetingInfo={meetingInfo} />}
                     <button onClick={(e) => {
                         e.preventDefault();
                         uploadData()

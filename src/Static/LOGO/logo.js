@@ -1,6 +1,9 @@
 import React from "react";
+import { Redirect, useHistory } from "react-router";
 
 const LOGO = () => {
+
+    const history = useHistory();
 
     const styles = {
         width: "130.43px",
@@ -9,6 +12,7 @@ const LOGO = () => {
     return (
         <>
             <svg
+                // onClick={() => history.push("/")}
                 style={styles}
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"

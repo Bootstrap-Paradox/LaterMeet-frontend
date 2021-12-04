@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 
 
 const InlineBlock = (props) => {
@@ -19,7 +20,8 @@ const NewTimingComponent = ({ setMeetingInfo, meetingInfo }) => {
 }
 
 function conversion({ toConvert = new Date(), time = false, utc = false }) {
-
+    console.log("What to convert")
+    console.log(toConvert)
     if (utc) {
 
         if (time) {
@@ -44,7 +46,18 @@ function conversion({ toConvert = new Date(), time = false, utc = false }) {
 
 class Timing {
     constructor({ date = new Date(), meta_data = null }) {
-        if (meta_data) {
+
+        if (meta_data["year"] == null) {
+            const currentTime = new Date()
+            const currentStartTime = `${currentTime.getFullYear()}-${safe(currentTime.getMonth() + 1)}-${currentTime.getDate() !== 0 ? currentTime.getDate() <= 9 ? `0${currentTime.getDate()}` : currentTime.getDate() : "01"}T00:00`
+            const initialExpiryTime = new Date(currentTime.getTime() + 60 * 24 * 30 * 60000)
+            const endTime = `${initialExpiryTime.getFullYear()}-${initialExpiryTime.getMonth() + 1}-${initialExpiryTime.getDate() !== 0 ? initialExpiryTime.getDate() <= 9 ? `0${initialExpiryTime.getDate()}` : initialExpiryTime.getDate() : "01"}`
+            this.timing = {
+                start_time: currentTime,
+                endTime: initialExpiryTime,
+            }
+        }
+        else if (meta_data) {
             // console.log(meta_data)
             this.timing = {
                 start_time: this.fromMetaData(meta_data["start_time"]),
@@ -120,6 +133,9 @@ class Timing {
                 safe(meta_data["minute"])
             ))
         } else {
+            console.log("This is very frustrating")
+            console.log(meta_data["year"])
+            console.log(meta_data)
             return new Date(Date.UTC(
                 meta_data["year"].toString(),
                 safe(meta_data["month"] - 1),
@@ -132,15 +148,22 @@ class Timing {
 
 const TimingComponent = ({ setMeetingInfo, meetingInfo }) => {
 
+    const history = useHistory()
     // const currentTime = new Date()
     // const currentStartTime = `${currentTime.getFullYear()}-${currentTime.getMonth() + 1}-${currentTime.getDate() !== 0 ? currentTime.getDate() <= 9 ? `0${currentTime.getDate()}` : currentTime.getDate() : "01"}T00:00`
     // const initialExpiryTime = new Date(currentTime.getTime() + 60 * 24 * 30 * 60000)
     // const endTime = `${initialExpiryTime.getFullYear()}-${initialExpiryTime.getMonth() + 1}-${initialExpiryTime.getDate() !== 0 ? initialExpiryTime.getDate() <= 9 ? `0${initialExpiryTime.getDate()}` : initialExpiryTime.getDate() : "01"}`
 
+    if (!meetingInfo) {
+        meetingInfo = { "meeting_timings": [] }
+    }
+
     const [timing, setTiming] = useState({
         start_time: "",
         end_date: ""
     });
+
+    const [schedule, setSchedule] = useState(meetingInfo["meeting_timings"].hasOwnProperty('schedule') ? meetingInfo["meeting_timings"]["schedule"] : false);
     useEffect(() => {
         // console.log("What is the Timing")
         // console.log(timing)
@@ -159,38 +182,55 @@ const TimingComponent = ({ setMeetingInfo, meetingInfo }) => {
     // Pre-Set values for timing
 
     useEffect(() => {
+        console.log(meetingInfo["meeting_timings"])
+        console.log(schedule)
+
+    })
+
+    useEffect(() => {
         setMeetingInfo({
             ...meetingInfo,
             meeting_timings: {
                 start_time: parseTime({ toParse: timing["start_time"] }),
-                end_date: parseTime({ toParse: timing["end_date"] })
+                end_date: parseTime({ toParse: timing["end_date"] }),
+                schedule: schedule,
             }
         })
         // console.log(parseTime({ toParse: timing["start_time"] }))
 
-    }, [timing])
-
+    }, [timing, schedule])
 
     return (
         <>
             <div>
-                <input name="startTime" onChange={(e) => {
-                    // console.log(e.target.value)
-                    setTiming({
-                        ...timing,
-                        start_time: e.target.value
-                    })
-                    // const pat = /[-:]/g
-                    // console.log(pat.test("hithere"))
-                }} type="datetime-local" value={timing["start_time"]} />
-                <input onChange={(e) => {
-                    console.log(e.target.value)
-                    setTiming({
-                        ...timing,
-                        end_date: e.target.value
-                    })
+                <div>
+                    <label htmlFor="schedule">Schedule</label>
+                    <input type="checkbox" onChange={() => {
+                        setSchedule((prevState) => !prevState)
+                    }} checked={schedule} />
+                </div>
+                {schedule &&
+                    <>
+                        <input className="box" name="startTime" onChange={(e) => {
+                            // console.log(e.target.value)
+                            setTiming({
+                                ...timing,
+                                start_time: e.target.value
+                            })
+                            // const pat = /[-:]/g
+                            // console.log(pat.test("hithere"))
+                        }} type="datetime-local" value={timing["start_time"]} />
+                        <input className="box" onChange={(e) => {
+                            console.log(e.target.value)
+                            setTiming({
+                                ...timing,
+                                end_date: e.target.value
+                            })
 
-                }} type="date" value={timing["end_date"]} />
+                        }} type="date" value={timing["end_date"]} />
+                    </>
+                }
+
             </div>
         </>
     )
