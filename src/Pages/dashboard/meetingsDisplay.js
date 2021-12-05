@@ -18,7 +18,7 @@ const MeetingDisplay = () => {
     }, [redirect])
 
     useEffect(() => {
-        if (meetingsError && meetingsError.status === 404) {
+        if (meetingsError) {
             history.push("/d/new")
         }
     }, [meetingsError])
