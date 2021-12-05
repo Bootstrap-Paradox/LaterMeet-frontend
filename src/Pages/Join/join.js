@@ -18,8 +18,8 @@ const JoinPage = () => {
 
 
 
-    const [onGoingMeeting, setOnGoingMeeting] = useState({
-        msg: "Meeting Yet to Start",
+    const [isLive, setIsLive] = useState({
+        message: "Meeting Yet to Start",
         show: false,
     });
 
@@ -42,13 +42,33 @@ const JoinPage = () => {
                 else if (videoElement.paused) {
                     videoElement.play()
                 }
+
+                if (meetingStartTime > new Date().getTime()) {
+                    setIsLive({
+                        ...isLive,
+                        message: "Meeting Yet To Start",
+                        show: true
+                    })
+                    console.log(meetingStartTime - new Date().getTime())
+                }
+
                 if (meetingStartTime + (videoElement.duration * 1000) <= new Date().getTime()) {
                     // The Meeting Has Ended
+                    setIsLive({
+                        ...isLive,
+                        message: "Meeting Ended",
+                        show: true
+                    })
                     if (videoElement) videoElement.pause();
 
                 }
 
                 if ((videoElement.currentTime > (currentDiff + 10) || videoElement.currentTime < (currentDiff - 10)) && videoElement.currentTime < videoElement.duration) {
+                    setIsLive({
+                        ...isLive,
+                        message: "",
+                        show: false,
+                    })
                     videoElement.currentTime = currentDiff;
                     videoElement.play()
                 }
@@ -69,6 +89,9 @@ const JoinPage = () => {
         setVideoElement(document.getElementById("video-component"));
     }, [meetingData])
     // style={{ "pointerEvents": "none" }}
+    useEffect(() => {
+
+    })
     return (
         <>
             {meetingLoading && <h1>Loading</h1>}
@@ -76,8 +99,8 @@ const JoinPage = () => {
             {meetingData &&
                 <div style={{ textAlign: "center" }} className="boundary">
                     <h1 style={{ marginTop: "57px" }}>{meetingData && meetingData["meeting_name"]}</h1>
-
-                    <VideoElement meeting_url={meetingData["meeting_url"]} />
+                    {isLive.show && <p>{isLive.message}</p>}
+                    {isLive.show || <VideoElement meeting_url={meetingData["meeting_url"]} />}
                     <Description content={meetingData["meeting_description"]} />
                 </div>
             }

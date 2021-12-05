@@ -47,23 +47,23 @@ function conversion({ toConvert = new Date(), time = false, utc = false }) {
 class Timing {
     constructor({ date = new Date(), meta_data = null }) {
 
-        if (meta_data["year"] == null) {
+        console.log("How many times is it running")
+        if (meta_data) {
+            this.timing = {
+                start_time: this.fromMetaData(meta_data["start_time"]),
+                end_date: this.fromMetaData(meta_data["end_date"])
+            }
+        } else if (meta_data["year"] === null || meta_data["year"] === undefined) {
             const currentTime = new Date()
-            const currentStartTime = `${currentTime.getFullYear()}-${safe(currentTime.getMonth() + 1)}-${currentTime.getDate() !== 0 ? currentTime.getDate() <= 9 ? `0${currentTime.getDate()}` : currentTime.getDate() : "01"}T00:00`
-            const initialExpiryTime = new Date(currentTime.getTime() + 60 * 24 * 30 * 60000)
-            const endTime = `${initialExpiryTime.getFullYear()}-${initialExpiryTime.getMonth() + 1}-${initialExpiryTime.getDate() !== 0 ? initialExpiryTime.getDate() <= 9 ? `0${initialExpiryTime.getDate()}` : initialExpiryTime.getDate() : "01"}`
+            // const currentStartTime = `${currentTime.getFullYear()}-${safe(currentTime.getMonth() + 1)}-${currentTime.getDate() !== 0 ? currentTime.getDate() <= 9 ? `0${currentTime.getDate()}` : currentTime.getDate() : "01"}T00:00`
+            const initialExpiryTime = new Date(currentTime.getTime() * 60000)
+            // const endTime = `${initialExpiryTime.getFullYear()}-${initialExpiryTime.getMonth() + 1}-${initialExpiryTime.getDate() !== 0 ? initialExpiryTime.getDate() <= 9 ? `0${initialExpiryTime.getDate()}` : initialExpiryTime.getDate() : "01"}`
             this.timing = {
                 start_time: currentTime,
                 endTime: initialExpiryTime,
             }
         }
-        else if (meta_data) {
-            // console.log(meta_data)
-            this.timing = {
-                start_time: this.fromMetaData(meta_data["start_time"]),
-                end_date: this.fromMetaData(meta_data["end_date"])
-            }
-        }
+
         this.date = date;
     }
 
