@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import { SuperContext } from './dashboardHome';
 import { uploadFirebase } from '../../Logics/firebase';
 import API from '../../Logics/request';
+import { TimingComponent } from '../../Components/components';
 
 
 
@@ -57,6 +58,7 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
                 const finalData = requestData;
                 delete finalData["meeting_hosts"]
                 delete finalData["meeting_speakers"]
+                delete finalData["meeting_views"]
                 API({ method: "put", endpoint: `meetings/${superState.meetingData["_id"]}`, data: meetingInfo }).then(res => {
                     history.push("/d/h");
                 }).catch(err => {
@@ -70,6 +72,10 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
 
 
     }
+
+    // useEffect(() => {
+    //     console.log(meetingInfo)
+    // })
 
     useEffect(() => {
         if (!CreateMeeting && meetingInfo.meeting_url !== undefined && meetingInfo.meeting_url !== superState.meetingData.meeting_url) {
@@ -89,6 +95,7 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
                     </>
                     }
                     <MeetingEditTextArea placeholder="Description" fieldData={["meeting_description", meetingInfo["meeting_description"]]} setMeetingInfo={setMeetingInfo} />
+                    {!CreateMeeting && meetingInfo && <TimingComponent setMeetingInfo={setMeetingInfo} meetingInfo={meetingInfo} />}
                     <button onClick={(e) => {
                         e.preventDefault();
                         uploadData()
