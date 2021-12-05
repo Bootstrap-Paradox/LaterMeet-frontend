@@ -9,7 +9,6 @@ const EnterCode = () => {
     const [code, setCode] = useState('');
     return (
         <>
-            <NavBar />
             <section >
                 <h1 className="title">Confirm</h1>
                 <p className="description">One Last Step</p>

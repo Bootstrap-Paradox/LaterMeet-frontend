@@ -1,10 +1,12 @@
-
+import React from "react";
+import LOGO from '../Static/LOGO/logo';
 
 const NavBar = () => {
 
     return (
         <div className="nav-bar">
-            <h1>LaterMeet</h1>
+            <LOGO />
+            {/* <h1>LaterMeet</h1> */}
             <div className="btn"></div>
         </div>
     )

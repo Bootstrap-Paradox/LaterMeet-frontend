@@ -17,16 +17,24 @@ const JoinPage = () => {
     const { data: meetingData, loading: meetingLoading, error: meetingError } = useFetch({ url: `${baseURL}/meetings/join/${meeting_id}` })
 
 
-    const [inter, setInter] = useState(true);
+
+    const [isLive, setIsLive] = useState({
+        message: "Meeting Yet to Start",
+        show: false,
+    });
 
     var checkLoop = meetingData && videoElement && setInterval(() => {
         if (meetingData && videoElement) {
             if (videoElement.currentTime >= videoElement.duration) {
+                console.log("is this being triggred")
                 clearInterval(checkLoop)
             }
             if (videoElement && videoElement.currentTime <= videoElement.duration) {
+                console.log("does this run then")
                 let currentTime = new Date().getTime()
                 let currentDiff = (currentTime - meetingStartTime) / 1000;
+
+                console.log(currentDiff)
                 if (currentDiff < 0) {
                     videoElement.pause()
                     // TODO: Actions
@@ -34,13 +42,33 @@ const JoinPage = () => {
                 else if (videoElement.paused) {
                     videoElement.play()
                 }
-                // if (meetingStartTime + (videoElement.duration * 1000) <= new Date().getTime()) {
-                //     // The Meeting Has Ended
-                //     if (videoElement) videoElement.pause();
 
-                // }
+                if (meetingStartTime > new Date().getTime()) {
+                    setIsLive({
+                        ...isLive,
+                        message: "Meeting Yet To Start",
+                        show: true
+                    })
+                    console.log(meetingStartTime - new Date().getTime())
+                }
+
+                if (meetingStartTime + (videoElement.duration * 1000) <= new Date().getTime()) {
+                    // The Meeting Has Ended
+                    setIsLive({
+                        ...isLive,
+                        message: "Meeting Ended",
+                        show: true
+                    })
+                    if (videoElement) videoElement.pause();
+
+                }
 
                 if ((videoElement.currentTime > (currentDiff + 10) || videoElement.currentTime < (currentDiff - 10)) && videoElement.currentTime < videoElement.duration) {
+                    setIsLive({
+                        ...isLive,
+                        message: "",
+                        show: false,
+                    })
                     videoElement.currentTime = currentDiff;
                     videoElement.play()
                 }
@@ -56,10 +84,14 @@ const JoinPage = () => {
     }, [])
 
     useEffect(() => {
+        meetingData && console.log(meetingData["meeting_start_time"])
         meetingData && setmeetingStartTime(meetingData["meeting_start_time"]);
         setVideoElement(document.getElementById("video-component"));
     }, [meetingData])
     // style={{ "pointerEvents": "none" }}
+    useEffect(() => {
+
+    })
     return (
         <>
             {meetingLoading && <h1>Loading</h1>}
@@ -67,7 +99,8 @@ const JoinPage = () => {
             {meetingData &&
                 <div style={{ textAlign: "center" }} className="boundary">
                     <h1 style={{ marginTop: "57px" }}>{meetingData && meetingData["meeting_name"]}</h1>
-                    <VideoElement meeting_url={meetingData["meeting_url"]} />
+                    {isLive.show && <p>{isLive.message}</p>}
+                    {isLive.show || <VideoElement meeting_url={meetingData["meeting_url"]} />}
                     <Description content={meetingData["meeting_description"]} />
                 </div>
             }
@@ -97,6 +130,7 @@ const Description = ({ content = "" }) => {
         <>
             {content !== "" &&
                 <div className="description-card" >
+                    <h2 className="title">Description</h2>
                     <p>
                         {content}
                     </p>
@@ -112,12 +146,13 @@ const VideoElement = ({ meeting_url, type = "video/mp4" }) => {
     const dimensions = useDimension();
 
     return (
-        <section>
-            <video style={{ pointerEvents: "none", maxHeight: 780 }} width={dimensions.width * 0.90} height="auto" id="video-component" muted="muted" onWaiting={() => { console.log("hey") }} onTimeUpdate={() => { }} autoPlay={true} >
-                <source src={meeting_url} type={type} />
+        <section className="video-component-block">
+            <video style={{ pointerEvents: "none", maxHeight: 780 }} width={dimensions.width * 0.90} height="auto" id="video-component" muted="muted" onWaiting={() => { console.log("waiting") }} onTimeUpdate={() => { }} autoPlay={true} >
+                {/* <source src={meeting_url} type={type} /> */}
+                <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
                 <p>Something Went Wrong</p>
             </video>
-            <button onClick={() => {
+            <button id="fullscreen" onClick={() => {
                 const videoElement = document.getElementById("video-component");
 
                 if (videoElement.requestFullscreen) videoElement.requestFullscreen().then(lock());
@@ -133,7 +168,7 @@ const VideoElement = ({ meeting_url, type = "video/mp4" }) => {
                 }
 
 
-            }} className="btn btn-primary btn-long">Full Screen</button>
+            }} className="btn btn-primary">Full Screen</button>
         </section>
     )
 }

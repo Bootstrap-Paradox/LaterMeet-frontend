@@ -303,30 +303,38 @@ input[type=file] {
           box-shadow: none;
 }
 
+.video-component-block {
+  position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.video-component-block #fullscreen {
+  position: absolute;
+  bottom: 2rem;
+  right: 0;
+}
+
 #video-component {
   border-radius: 8px;
   margin: 2rem auto;
 }
 
 .description-card {
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  padding: 66px 24px;
-  text-align: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: #e40066;
-  -webkit-box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.25);
-          box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.25);
-  color: white;
-  border-radius: 8px;
-  margin-top: 1.3rem;
-  font-weight: bold;
+  width: 100%;
+  margin-top: 1.2rem;
+  padding-top: 2.2rem;
+  border-top: #ccc solid 0.6px;
+  margin-bottom: 4rem;
+}
+
+.description-card .title {
+  font-size: 2.5rem;
+}
+
+.description-card p {
+  margin-top: 1.9rem;
 }
 
 .profile {
@@ -633,10 +641,38 @@ input[type=file] {
   background-color: #FAFAFA;
   height: 100vh;
   overflow-x: hidden;
+  position: relative;
 }
 
 .boundary {
   padding: 16px 29px 0 29px;
   position: relative;
+}
+
+.meter-strong {
+  margin-bottom: 2rem;
+  margin-top: -1rem;
+}
+
+.meter-strong meter::-webkit-meter-optimum-value {
+  background-color: #1FEF9F;
+}
+
+.meter-medium {
+  margin-bottom: 2rem;
+  margin-top: -1rem;
+}
+
+.meter-medium meter::-webkit-meter-optimum-value {
+  background-color: #1F77EF;
+}
+
+.meter-weak {
+  margin-bottom: 2rem;
+  margin-top: -1rem;
+}
+
+.meter-weak meter::-webkit-meter-optimum-value {
+  background-color: #FA3737;
 }
 /*# sourceMappingURL=styles.css.map */
