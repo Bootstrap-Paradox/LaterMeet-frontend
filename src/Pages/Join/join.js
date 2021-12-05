@@ -148,8 +148,8 @@ const VideoElement = ({ meeting_url, type = "video/mp4" }) => {
     return (
         <section className="video-component-block">
             <video style={{ pointerEvents: "none", maxHeight: 780 }} width={dimensions.width * 0.90} height="auto" id="video-component" muted="muted" onWaiting={() => { console.log("waiting") }} onTimeUpdate={() => { }} autoPlay={true} >
-                {/* <source src={meeting_url} type={type} /> */}
-                <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+                <source src={meeting_url} type={type} />
+                {/* <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" /> */}
                 <p>Something Went Wrong</p>
             </video>
             <button id="fullscreen" onClick={() => {
