@@ -47,13 +47,12 @@ function conversion({ toConvert = new Date(), time = false, utc = false }) {
 class Timing {
     constructor({ date = new Date(), meta_data = null }) {
 
-        console.log("How many times is it running")
-        if (meta_data) {
+        if (meta_data && (meta_data["start_time"]["year"] !== null)) {
             this.timing = {
                 start_time: this.fromMetaData(meta_data["start_time"]),
                 end_date: this.fromMetaData(meta_data["end_date"])
             }
-        } else if (meta_data["year"] === null || meta_data["year"] === undefined) {
+        } else {
             const currentTime = new Date()
             // const currentStartTime = `${currentTime.getFullYear()}-${safe(currentTime.getMonth() + 1)}-${currentTime.getDate() !== 0 ? currentTime.getDate() <= 9 ? `0${currentTime.getDate()}` : currentTime.getDate() : "01"}T00:00`
             const initialExpiryTime = new Date(currentTime.getTime() * 60000)
@@ -133,9 +132,6 @@ class Timing {
                 safe(meta_data["minute"])
             ))
         } else {
-            console.log("This is very frustrating")
-            console.log(meta_data["year"])
-            console.log(meta_data)
             return new Date(Date.UTC(
                 meta_data["year"].toString(),
                 safe(meta_data["month"] - 1),
