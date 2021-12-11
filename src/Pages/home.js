@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import ExpandMore from "../Components/UI/expandMore";
 import FakeVideoElement from "../Components/UI/fakeVideoElement";
 import HowItWorksBlock from "../Components/UI/howItWorksBlock";
+import { EarlyStart } from "../Components/videoElemenet";
 
 const HomePage = () => {
     const history = useHistory();
@@ -29,6 +30,8 @@ const HomePage = () => {
                 <HowItWorksBlock title="Upload" description="Let's See What you have In Hold for Us" logo="⬆️" />
 
             </section>
+
+            <EarlyStart />
         </>
     )
 
