@@ -4,6 +4,7 @@ import useFetch from '../../Hooks/useFetch';
 import { SuperContext } from './dashboardHome';
 import { baseURL } from '../../url';
 import { Link } from 'react-router-dom';
+import Loaders from '../../Components/loader';
 
 const MeetingDisplay = () => {
     const { superState, superDispatch } = useContext(SuperContext);
@@ -26,7 +27,7 @@ const MeetingDisplay = () => {
     return (
         <>
             {meetingsError && <p>{meetingsError.status}</p>}
-            {meetingsLoading && <p>Loading</p>}
+            {meetingsLoading && <Loaders />}
             {
                 meetings &&
                 <section className="meeting-display">
