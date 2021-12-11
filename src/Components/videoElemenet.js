@@ -7,7 +7,7 @@ export default function VideoElement({ meeting_url, type = "video/mp4" }) {
 
     return (
         <section className="video-component-block">
-            <video style={{ pointerEvents: "none", maxHeight: 780 }} width={dimensions.width * 0.90} height="auto" id="video-component" muted="muted" onWaiting={() => { console.log("waiting") }} onTimeUpdate={() => { }} autoPlay={true} >
+            <video style={{ pointerEvents: "none", maxHeight: 780 }} width={dimensions.width * 0.80} height="auto" id="video-component" muted="muted" onWaiting={() => { console.log("waiting") }} onTimeUpdate={() => { }} autoPlay={true} >
                 <source src={meeting_url} type={type} />
                 {/* <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" /> */}
                 <p>Something Went Wrong</p>
@@ -41,12 +41,13 @@ export function EarlyStart({ text = "Meeting Yet to Start" }) {
         <>
             <div
                 style={{
-                    width: dimension.width * 0.90,
+                    width: dimension.width * 0.80,
                     height: "auto",
                     border: "0.8px solid #ccc",
                     background: "#fff",
                     textAlign: "center",
                     margin: "auto",
+                    marginTop: "2rem",
                     paddingTop: "2rem",
                     paddingBottom: "2rem",
                     borderRadius: "16px"
