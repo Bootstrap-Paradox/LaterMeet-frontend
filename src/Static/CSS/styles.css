@@ -268,6 +268,22 @@ input[type=file] {
   left: 0.2rem;
 }
 
+.fake-video-element {
+  border: 0.35px solid #ccc;
+  margin: auto;
+  margin-top: 10rem;
+  height: 242px;
+  width: 288px;
+  border-radius: 8px;
+}
+
+.btn-button {
+  width: 288px;
+  height: 51px;
+  font-size: 20px;
+  border-radius: 8px;
+}
+
 .nav-bar {
   width: 100%;
   margin: 0;
@@ -674,5 +690,85 @@ input[type=file] {
 
 .meter-weak meter::-webkit-meter-optimum-value {
   background-color: #FA3737;
+}
+
+.section-heading {
+  font-size: 44px;
+  color: #434343;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-1 {
+  height: 90vh;
+}
+
+.section-2 .divide {
+  font-size: 113px;
+  text-align: center;
+  margin-top: 104px;
+}
+
+.section-3 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.section-3 .how-it-works {
+  -webkit-box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+          box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  text-align: center;
+  margin: auto;
+  margin-bottom: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  padding: 1rem auto;
+  border-radius: 1rem;
+  max-width: 300px;
+}
+
+.section-3 .how-it-works div {
+  margin: 43px auto 27px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 85px;
+}
+
+.section-3 .how-it-works h1 {
+  font-size: 45px;
+  color: #3b3b3b;
+  margin-bottom: 9px;
+  font-weight: bold;
+}
+
+.section-3 .how-it-works p {
+  font-size: 16px;
+  color: #888888;
+  margin: auto 3rem;
+  margin-bottom: 57px;
 }
 /*# sourceMappingURL=styles.css.map */
