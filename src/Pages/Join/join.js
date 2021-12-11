@@ -6,6 +6,8 @@ import useFetch from '../../Hooks/useFetch';
 import BottomBar from '../../Components/bottomBar';
 import { baseURL } from '../../url';
 import useDimension from '../../Hooks/useDimensions';
+import VideoElement, { EarlyStart } from '../../Components/videoElemenet';
+import Loaders from '../../Components/loader';
 
 
 const JoinPage = () => {
@@ -21,9 +23,10 @@ const JoinPage = () => {
     const [isLive, setIsLive] = useState({
         message: "Meeting Yet to Start",
         show: false,
+        toStart: true,
     });
 
-    var checkLoop = meetingData && videoElement && setInterval(() => {
+    var checkLoop = isLive.toStart && meetingData && videoElement && setInterval(() => {
         if (meetingData && videoElement) {
             if (videoElement.currentTime >= videoElement.duration) {
                 console.log("is this being triggred")
@@ -42,6 +45,15 @@ const JoinPage = () => {
                 else if (videoElement.paused) {
                     videoElement.play()
                 }
+                else if ((videoElement.currentTime > (currentDiff + 10) || videoElement.currentTime < (currentDiff - 10)) && videoElement.currentTime < videoElement.duration) {
+                    setIsLive({
+                        ...isLive,
+                        message: "",
+                        show: false,
+                    })
+                    videoElement.currentTime = currentDiff;
+                    videoElement.play()
+                }
 
                 if (meetingStartTime > new Date().getTime()) {
                     setIsLive({
@@ -54,24 +66,17 @@ const JoinPage = () => {
 
                 if (meetingStartTime + (videoElement.duration * 1000) <= new Date().getTime()) {
                     // The Meeting Has Ended
+                    clearInterval(checkLoop);
                     setIsLive({
                         ...isLive,
                         message: "Meeting Ended",
-                        show: true
+                        show: true,
+                        toStart: false,
                     })
                     if (videoElement) videoElement.pause();
 
                 }
 
-                if ((videoElement.currentTime > (currentDiff + 10) || videoElement.currentTime < (currentDiff - 10)) && videoElement.currentTime < videoElement.duration) {
-                    setIsLive({
-                        ...isLive,
-                        message: "",
-                        show: false,
-                    })
-                    videoElement.currentTime = currentDiff;
-                    videoElement.play()
-                }
 
             }
 
@@ -94,12 +99,12 @@ const JoinPage = () => {
     })
     return (
         <>
-            {meetingLoading && <h1>Loading</h1>}
+            {meetingLoading && <Loaders />}
             {meetingError && <p>{meetingError}</p>}
             {meetingData &&
                 <div style={{ textAlign: "center" }} className="boundary">
                     <h1 style={{ marginTop: "57px" }}>{meetingData && meetingData["meeting_name"]}</h1>
-                    {isLive.show && <p>{isLive.message}</p>}
+                    {isLive.show && <EarlyStart text={isLive.message} />}
                     {isLive.show || <VideoElement meeting_url={meetingData["meeting_url"]} />}
                     <Description content={meetingData["meeting_description"]} />
                 </div>
@@ -141,36 +146,6 @@ const Description = ({ content = "" }) => {
     )
 }
 
-const VideoElement = ({ meeting_url, type = "video/mp4" }) => {
 
-    const dimensions = useDimension();
-
-    return (
-        <section className="video-component-block">
-            <video style={{ pointerEvents: "none", maxHeight: 780 }} width={dimensions.width * 0.90} height="auto" id="video-component" muted="muted" onWaiting={() => { console.log("waiting") }} onTimeUpdate={() => { }} autoPlay={true} >
-                <source src={meeting_url} type={type} />
-                {/* <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" /> */}
-                <p>Something Went Wrong</p>
-            </video>
-            <button id="fullscreen" onClick={() => {
-                const videoElement = document.getElementById("video-component");
-
-                if (videoElement.requestFullscreen) videoElement.requestFullscreen().then(lock());
-                else if (videoElement.webkitRequestFullscreen) videoElement.webkitRequestFullscreen().then(lock());
-                else if (videoElement.msRequestFullscreen) videoElement.msRequestFullscreen().then(lock());
-
-                function lock() {
-                    window.screen.orientation.lock("landscape").then().catch(
-                        (err) => {
-                            // console.log("Landscape is Not Supported on this device")
-                        }
-                    );
-                }
-
-
-            }} className="btn btn-primary">Full Screen</button>
-        </section>
-    )
-}
 
 export default JoinPage;
