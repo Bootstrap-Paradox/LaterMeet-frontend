@@ -29,15 +29,15 @@ const JoinPage = () => {
     var checkLoop = isLive.toStart && meetingData && videoElement && setInterval(() => {
         if (meetingData && videoElement) {
             if (videoElement.currentTime >= videoElement.duration) {
-                console.log("is this being triggred")
+                // console.log("is this being triggred")
                 clearInterval(checkLoop)
             }
             if (videoElement && videoElement.currentTime <= videoElement.duration) {
-                console.log("does this run then")
+                // console.log("does this run then")
                 let currentTime = new Date().getTime()
                 let currentDiff = (currentTime - meetingStartTime) / 1000;
 
-                console.log(currentDiff)
+                // console.log(currentDiff)
                 if (currentDiff < 0) {
                     videoElement.pause()
                     // TODO: Actions
@@ -56,12 +56,23 @@ const JoinPage = () => {
                 }
 
                 if (meetingStartTime > new Date().getTime()) {
+                    // Meeting Yet To Start
                     setIsLive({
                         ...isLive,
                         message: "Meeting Yet To Start",
-                        show: true
+                        show: true,
+                        toStart: false,
                     })
-                    console.log(meetingStartTime - new Date().getTime())
+                    // console.log("Now the meeting is yet to start")
+                    // console.log(meetingStartTime - new Date().getTime())
+                    const meetingDifference = (meetingStartTime - new Date().getTime()) - 1000 * 60
+                    setTimeout(() => {
+                        setIsLive({
+                            show: false,
+                            toStart: true,
+                        })
+                    }, meetingDifference)
+                    clearInterval(checkLoop)
                 }
 
                 if (meetingStartTime + (videoElement.duration * 1000) <= new Date().getTime()) {
@@ -89,7 +100,7 @@ const JoinPage = () => {
     }, [])
 
     useEffect(() => {
-        meetingData && console.log(meetingData["meeting_start_time"])
+        // meetingData && console.log(meetingData["meeting_start_time"])
         meetingData && setmeetingStartTime(meetingData["meeting_start_time"]);
         setVideoElement(document.getElementById("video-component"));
     }, [meetingData])
