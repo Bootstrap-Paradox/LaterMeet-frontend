@@ -225,9 +225,22 @@
             justify-content: center;
             font-size: 1rem;
             font-weight: 600;
+
+        }
+        .box-tile-block{
+            @extend .box-tile;
+            justify-content: space-between;
+            
+            &>*{
+                margin: auto 1rem;
+            }
         }
 
     }
+}
+
+.placeholder{
+    color: #9A9498;
 }
 
 .box{

@@ -509,7 +509,7 @@ input[type=file] {
   font-weight: 500;
 }
 
-.meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile {
+.meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile, .meeting-view .view-box .box-tile-block, .meeting-edit .view-box .box-tile-block {
   height: 44px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -524,11 +524,25 @@ input[type=file] {
   font-weight: 600;
 }
 
-.box, .custom-file-upload, .meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile {
+.meeting-view .view-box .box-tile-block, .meeting-edit .view-box .box-tile-block {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.meeting-view .view-box .box-tile-block > *, .meeting-edit .view-box .box-tile-block > * {
+  margin: auto 1rem;
+}
+
+.placeholder {
+  color: #9A9498;
+}
+
+.box, .custom-file-upload, .meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile, .meeting-view .view-box .box-tile-block, .meeting-edit .view-box .box-tile-block {
   margin: 0.8rem 1.6rem;
 }
 
-.plain-box, .box, .custom-file-upload, .meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile {
+.plain-box, .box, .custom-file-upload, .meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile, .meeting-view .view-box .box-tile-block, .meeting-edit .view-box .box-tile-block {
   border-radius: 8px;
   border: #D8D8D8 solid 1px;
   position: relative;

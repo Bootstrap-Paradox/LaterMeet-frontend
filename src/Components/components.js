@@ -20,8 +20,8 @@ const NewTimingComponent = ({ setMeetingInfo, meetingInfo }) => {
 }
 
 function conversion({ toConvert = new Date(), time = false, utc = false }) {
-    console.log("What to convert")
-    console.log(toConvert)
+    // console.log("What to convert")
+    // console.log(toConvert)
     if (utc) {
 
         if (time) {
@@ -44,7 +44,7 @@ function conversion({ toConvert = new Date(), time = false, utc = false }) {
     }
 }
 
-class Timing {
+export class Timing {
     constructor({ date = new Date(), meta_data = null }) {
 
         if (meta_data && (meta_data["start_time"]["year"] !== null)) {
@@ -97,6 +97,20 @@ class Timing {
         return {
             start_time: conversion({ toConvert: this.timing["start_time"], time: true, utc: true }),
             end_date: conversion({ toConvert: this.timing["end_date"], utc: true }),
+        }
+    }
+
+    toHumanString() {
+        const startTime = conversion({ toConvert: this.timing["start_time"], time: true, utc: true })
+
+
+        function rev(date) {
+            return date.split("-").reverse().join(" / ")
+        }
+
+        return {
+            start_date: rev(conversion({ toConvert: this.timing["start_time"] })),
+            end_date: rev(conversion({ toConvert: this.timing["end_date"] }))
         }
     }
     // Production Data to be updated in the database

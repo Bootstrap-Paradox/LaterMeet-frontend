@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import { SuperContext } from './dashboardHome';
 import share from '../../Static/Images/share.svg';
 import Share from '../../Logics/share';
+import { Timing } from '../../Components/components';
 
 const MeetingView = () => {
 
@@ -26,14 +27,10 @@ const MeetingView = () => {
                     </div>
                     <div style={{ height: "208px" }} className="box view-box">
                         <h5><span>Timings</span></h5>
-                        {meetingData["meeting_timings"].length > 0 ? meetingData["meeting_timings"].map(
-                            (timing, index) => {
-                                return (
-                                    <div key={index} className="box-tile">{timing}</div>
-                                )
-
-                            }
-                        ) :
+                        {console.log(meetingData["meeting_timings"])}
+                        {meetingData["meeting_timings"]["schedule"] ?
+                            <MeetingTiming meetingData={meetingData["meeting_timings"]} />
+                            :
                             <h3 className="light-tip">On Join Load</h3>
                         }
                     </div>
@@ -53,6 +50,24 @@ const MeetingView = () => {
                     </div>
                 </section>
             }
+        </>
+    )
+}
+
+function MeetingTiming({ meetingData }) {
+    const timing = new Timing({ meta_data: meetingData }).toHumanString()
+    return (
+        <>
+            <div className="box-tile-block">
+
+                <h4 className='placeholder'>Start Date</h4>
+                <h4>{timing["start_date"]}</h4>
+            </div>
+            <div className="box-tile-block">
+
+                <h4 className='placeholder'>End Date</h4>
+                <h4>{timing["end_date"]}</h4>
+            </div>
         </>
     )
 }
