@@ -30,8 +30,6 @@ const HomePage = () => {
                 <HowItWorksBlock title="Upload" description="Let's See What you have In Hold for Us" logo="⬆️" />
 
             </section>
-
-            <EarlyStart />
         </>
     )
 
