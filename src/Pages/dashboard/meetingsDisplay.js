@@ -47,7 +47,8 @@ const MeetingDisplay = () => {
 
                                 }} className="display-tile">
                                     <span>{meeting.meeting_name}</span>
-                                    <span>{meeting.meeting_views}</span>
+                                    <span style={{ color: "#CECECE", fontWeight: "bold", textAlign: "end" }} >{meeting.meeting_views}</span>
+
 
                                 </div>
                             )
