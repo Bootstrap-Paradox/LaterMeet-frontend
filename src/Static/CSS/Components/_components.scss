@@ -264,7 +264,9 @@
     padding: 0 1rem;
     margin: 0;
     margin-bottom: 1rem;
-
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 .faded{
