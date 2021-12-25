@@ -5,9 +5,11 @@ import { SuperContext } from './dashboardHome';
 import { baseURL } from '../../url';
 import { Link } from 'react-router-dom';
 import Loaders from '../../Components/loader';
+import { ModalContext } from '../../App';
 
 const MeetingDisplay = () => {
     const { superState, superDispatch } = useContext(SuperContext);
+    const { modalState, modalDispatch } = useContext(ModalContext);
     const [redirect, setRedirect] = useState(false);
     const history = useHistory()
 
@@ -55,7 +57,15 @@ const MeetingDisplay = () => {
                         })}
                     </section>
                     <button className="btn btn-secondary btn-long-xl" onClick={() => {
-                        history.push("/d/new")
+                        // Check for Meetings Limit
+
+                        if (meetings["meetings"].length < 3) {
+                            history.push("/d/new")
+                        } else {
+
+                            modalDispatch({ type: "SHOW_MODAL", payload: { id: new Date().toString(), title: "Meeting Limit", msg: "3 Max Meetings Allowed", status: "warning", pop: true } })
+                        }
+
                     }}>New Meeting</button>
                 </section>
             }
