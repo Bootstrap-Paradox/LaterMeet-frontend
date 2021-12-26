@@ -4,10 +4,12 @@ import { SuperContext } from './dashboardHome';
 import share from '../../Static/Images/share.svg';
 import Share from '../../Logics/share';
 import { Timing } from '../../Components/components';
+import { ModalContext } from '../../App';
 
 const MeetingView = () => {
 
     const { superState, superDispatch } = useContext(SuperContext)
+    const { modalState, modalDispatch, confirmModalState, confirmModalDispatch } = useContext(ModalContext)
     const history = useHistory()
 
     let meetingData = superState.meetingData;
@@ -35,6 +37,24 @@ const MeetingView = () => {
                         }
                     </div>
                     <button className="btn btn-secondary btn-long-xl" onClick={() => { history.push("/d/edit") }}>Edit Meeting</button>
+                    <button className="btn btn-secondary btn-long-xl" style={{
+                        backgroundColor: "#F01D1D",
+                        marginTop: "1rem",
+                        marginBottom: "1rem"
+                    }} onClick={() => {
+                        confirmModalDispatch({
+                            type: "CONFIRM",
+                            payload: {
+                                title: "Discard",
+                                description: "The Meeting will be Permanently Deleted and Cannot be Accessed",
+                                confirm: () => {
+                                    console.log("hello There")
+                                    confirmModalDispatch({ type: "EXIT" })
+                                },
+                                type: "danger",
+                            }
+                        })
+                    }}>Delete Meeting</button>
                     <div className="floating-icon" onClick={async () => {
                         // navigator.clipboard.writeText(`https://latermeet.com/jn/${meetingData["_id"]}`)
                         const shareData = {
