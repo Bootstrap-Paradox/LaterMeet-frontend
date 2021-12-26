@@ -48,7 +48,7 @@ const MeetingDisplay = () => {
                                     history.push("/d/view")
 
                                 }} className="display-tile">
-                                    <span>{meeting.meeting_name}</span>
+                                    <span className="display-tile-title">{meeting.meeting_name}</span>
                                     <span style={{ color: "#CECECE", fontWeight: "bold", textAlign: "end" }} >{meeting.meeting_views}</span>
 
 
@@ -63,7 +63,7 @@ const MeetingDisplay = () => {
                             history.push("/d/new")
                         } else {
 
-                            modalDispatch({ type: "SHOW_MODAL", payload: { id: new Date().toString(), title: "Meeting Limit", msg: "3 Max Meetings Allowed", status: "warning", pop: true } })
+                            modalDispatch({ type: "SHOW_MODAL", payload: { id: new Date().toString(), title: "Meeting Limit", msg: "Meetings Limit Reached", status: "warning", pop: true } })
                         }
 
                     }}>New Meeting</button>

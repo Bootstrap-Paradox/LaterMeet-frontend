@@ -456,6 +456,12 @@ input[type=file] {
   padding: 0 1rem;
 }
 
+.meeting-display .display-tile .display-tile-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .meeting-display .display-tile > * {
   font-size: 1rem;
   font-weight: bold;

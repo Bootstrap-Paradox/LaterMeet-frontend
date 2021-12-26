@@ -11,14 +11,6 @@ const InlineBlock = (props) => {
     )
 }
 
-const NewTimingComponent = ({ setMeetingInfo, meetingInfo }) => {
-
-    const [timing, setTiming] = useState();
-    const [finalTiming, setFinalTiming] = useState();
-
-
-}
-
 function conversion({ toConvert = new Date(), time = false, utc = false }) {
     // console.log("What to convert")
     // console.log(toConvert)
@@ -244,10 +236,6 @@ const TimingComponent = ({ setMeetingInfo, meetingInfo }) => {
             </div>
         </>
     )
-}
-
-function safe(data) {
-    return data < 10 ? `0${data}` : data
 }
 
 
