@@ -1,0 +1,79 @@
+
+.confirmation-modal-background{
+    z-index: 10;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right: 0;
+    margin: auto;
+    background-color: rgba(0,0,0,0.3);
+}
+
+.confirmation-modal{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    max-width: 437px;
+    margin: auto;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1.6rem;
+    min-width: 250px;
+
+    .modal-title{
+        font-size: 35px;
+        color: getColor(text);
+        margin-bottom: 1.5rem;
+    }
+    .modal-description{
+        color: #9F9F9F;
+        margin-bottom: 2rem;
+        width: 80%;
+    }
+
+    .modal-btn-section{
+        display: flex;
+        justify-content: space-evenly;
+        gap: 40px;
+        margin-top: 1rem;
+
+        @media (max-width: 500px) {
+            flex-direction: column;
+            gap:20px;
+        }
+
+        button{
+            font-size: 1rem;
+            font-weight: bold;
+            // margin:auto;
+            // margin-top: 1rem;
+            padding: 12px 34px;
+            border-radius: 0.5rem;
+            border:none;
+            box-shadow: $shadow;
+
+        }
+
+        .danger{
+            background-color: #DE4040;
+            color: white;
+        }
+
+        .info{
+            background-color: white;
+            color: #2249F5;
+        }
+
+        .success{
+            background-color: #53A158;
+            color: white;
+        }
+    }
+}

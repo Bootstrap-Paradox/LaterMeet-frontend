@@ -9,7 +9,7 @@ import { ModalContext } from '../../App';
 
 const MeetingDisplay = () => {
     const { superState, superDispatch } = useContext(SuperContext);
-    const { modalState, modalDispatch } = useContext(ModalContext);
+    const { modalState, modalDispatch, confirmModalState, confirmModalDispatch } = useContext(ModalContext);
     const [redirect, setRedirect] = useState(false);
     const history = useHistory()
 
