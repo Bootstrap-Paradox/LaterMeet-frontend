@@ -4,6 +4,7 @@ import { SuperContext } from './dashboardHome';
 import { uploadFirebase } from '../../Logics/firebase';
 import API from '../../Logics/request';
 import { TimingComponent } from '../../Components/components';
+import { ModalContext } from '../../App';
 
 
 
@@ -108,14 +109,23 @@ const MeetingEdit = ({ CreateMeeting = false }) => {
 }
 
 const VideoUploadInput = ({ setUploadVideo, uploadVideo, setMeetingInfo, uploadProgress, setUploadProgress, meetingInfo, setDownloadUrl }) => {
+
+    const { modalState, modalDispatch, confirmModalState, confirmModalDispatch } = useContext(ModalContext);
+
     return (
         <div className="">
 
             <label className="file-upload">
 
-                <input type="file" onChange={(e) => {
+                <input type="file" accept='.mp4, .mov' onChange={(e) => {
                     e.preventDefault();
-                    setUploadVideo(e.target.files[0]);
+                    let filesize = ((e.target.files[0].size / 1024) / 1024).toFixed(4); // File size in MB
+                    if (!(filesize > 500)) {
+                        setUploadVideo(e.target.files[0]);
+                    } else {
+                        modalDispatch({ type: "SHOW_MODAL", payload: { id: new Date().toString(), title: "Size Limit Reached", msg: "Max File Size is 500 Mb", status: "danger", pop: true } })
+                    }
+
                 }} />
                 <span>{uploadVideo ? ellipseText(uploadVideo.name) : "Choose File"}</span>
                 <button className="btn btn-primary" onClick={(e) => { e.preventDefault(); setUploadVideo('') }}>X</button>
@@ -123,6 +133,7 @@ const VideoUploadInput = ({ setUploadVideo, uploadVideo, setMeetingInfo, uploadP
 
             {uploadProgress > 0 && <span className="percent"><p>{`${uploadProgress.toFixed(2)}%`}</p></span>}
 
+            {/* {console.log(uploadVideo.size)} */}
             <button className="btn btn-secondary" onClick={async (e) => {
                 e.preventDefault();
                 uploadFirebase({ fileName: meetingInfo["_id"], uploadFile: uploadVideo, setUploadProgress, setMeetingInfo }).then((url) => {
