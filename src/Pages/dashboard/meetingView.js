@@ -5,6 +5,7 @@ import share from '../../Static/Images/share.svg';
 import Share from '../../Logics/share';
 import { Timing } from '../../Components/components';
 import { ModalContext } from '../../App';
+import API from '../../Logics/request';
 
 const MeetingView = () => {
 
@@ -16,6 +17,16 @@ const MeetingView = () => {
 
     if (Object.keys(superState.meetingData).length === 0) history.push("/d/h")
 
+    function deleteMeeting() {
+        API({ method: "delete", endpoint: `meetings/${meetingData["_id"]}` }).then(
+            res => {
+                confirmModalDispatch({ type: "EXIT" })
+                history.push("/d/h")
+            }
+        ).catch(err => {
+            console.log(err)
+        })
+    }
 
     return (
         <>
@@ -42,19 +53,24 @@ const MeetingView = () => {
                         marginTop: "1rem",
                         marginBottom: "1rem"
                     }} onClick={() => {
+
+                        // Delete Meeting from Database
+
                         confirmModalDispatch({
                             type: "CONFIRM",
                             payload: {
                                 title: "Discard",
                                 description: "The Meeting will be Permanently Deleted and Cannot be Accessed",
                                 confirm: () => {
-                                    console.log("hello There")
-                                    confirmModalDispatch({ type: "EXIT" })
+                                    deleteMeeting()
                                 },
                                 type: "danger",
                             }
                         })
+
                     }}>Delete Meeting</button>
+
+
                     <div className="floating-icon" onClick={async () => {
                         // navigator.clipboard.writeText(`https://latermeet.com/jn/${meetingData["_id"]}`)
                         const shareData = {
