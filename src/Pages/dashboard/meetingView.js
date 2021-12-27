@@ -6,6 +6,7 @@ import Share from '../../Logics/share';
 import { Timing } from '../../Components/components';
 import { ModalContext } from '../../App';
 import API from '../../Logics/request';
+import { deleteFile } from '../../Logics/firebase';
 
 const MeetingView = () => {
 
@@ -62,6 +63,7 @@ const MeetingView = () => {
                                 title: "Discard",
                                 description: "The Meeting will be Permanently Deleted and Cannot be Accessed",
                                 confirm: () => {
+                                    deleteFile({ fileName: meetingData["_id"] })
                                     deleteMeeting()
                                 },
                                 type: "danger",

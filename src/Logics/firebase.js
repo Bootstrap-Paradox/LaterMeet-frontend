@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
 
 const firebaseConfig = {
     apiKey: "AIzaSyD2k_FpLxRf0EaZ1Xeu0A32uhTD2OV7wHc",
@@ -55,4 +55,14 @@ const uploadFirebase = async ({ fileName = new Date().getTime().toString(), uplo
     )
 }
 
-export { uploadFirebase };
+const deleteFile = ({ fileName = "" }) => {
+    const fileRef = generateRef(fileName)
+
+    deleteObject(fileRef).then(res => {
+        console.log("File Successfully Deleted")
+    }).catch(err => {
+        console.log("File Not Deleted")
+    })
+}
+
+export { uploadFirebase, deleteFile };
