@@ -11,6 +11,8 @@ import EnterCode from './Pages/authentication/enterCode';
 import LeavePage from './Pages/Join/Leave';
 import HomePage from './Pages/home';
 import useModal, { ModalBlock } from './Hooks/showModal/useShowModal 2';
+import { ConfirmationModal } from './Components/confirmationModal/confirmationModal';
+import useConfirmModal from './Components/confirmationModal/confirmationModal';
 
 
 const ModalContext = createContext();
@@ -18,13 +20,20 @@ const ModalContext = createContext();
 
 function App() {
   const { state: modalState, dispatch: modalDispatch } = useModal();
+  const { confirmModalState, confirmModalDispatch } = useConfirmModal();
 
   return (
-    <ModalContext.Provider value={{ modalState, modalDispatch }}>
+    <ModalContext.Provider value={{ modalState, modalDispatch, confirmModalState, confirmModalDispatch }}>
 
       <Router>
         <NavBar />
         <ModalBlock modalState={modalState} modalDispatch={modalDispatch} />
+        {confirmModalState.showConfirmModal && <ConfirmationModal title={confirmModalState.title} description={confirmModalState.description} Action={
+          {
+            cancel: () => { confirmModalDispatch({ type: "EXIT" }) },
+            confirm: confirmModalState.confirm
+          }
+        } />}
         <Switch>
           <Route exact path="/">
             <HomePage />

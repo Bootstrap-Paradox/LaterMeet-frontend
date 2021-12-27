@@ -456,6 +456,12 @@ input[type=file] {
   padding: 0 1rem;
 }
 
+.meeting-display .display-tile .display-tile-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .meeting-display .display-tile > * {
   font-size: 1rem;
   font-weight: bold;
@@ -509,7 +515,7 @@ input[type=file] {
   font-weight: 500;
 }
 
-.meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile {
+.meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile, .meeting-view .view-box .box-tile-block, .meeting-edit .view-box .box-tile-block {
   height: 44px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -524,11 +530,25 @@ input[type=file] {
   font-weight: 600;
 }
 
-.box, .custom-file-upload, .meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile {
+.meeting-view .view-box .box-tile-block, .meeting-edit .view-box .box-tile-block {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.meeting-view .view-box .box-tile-block > *, .meeting-edit .view-box .box-tile-block > * {
+  margin: auto 1rem;
+}
+
+.placeholder {
+  color: #9A9498;
+}
+
+.box, .custom-file-upload, .meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile, .meeting-view .view-box .box-tile-block, .meeting-edit .view-box .box-tile-block {
   margin: 0.8rem 1.6rem;
 }
 
-.plain-box, .box, .custom-file-upload, .meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile {
+.plain-box, .box, .custom-file-upload, .meeting-view .view-box .box-tile, .meeting-edit .view-box .box-tile, .meeting-view .view-box .box-tile-block, .meeting-edit .view-box .box-tile-block {
   border-radius: 8px;
   border: #D8D8D8 solid 1px;
   position: relative;
@@ -547,6 +567,9 @@ input[type=file] {
   padding: 0 1rem;
   margin: 0;
   margin-bottom: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .faded {
@@ -809,5 +832,101 @@ input[type=file] {
   color: #888888;
   margin: auto 3rem;
   margin-bottom: 57px;
+}
+
+.confirmation-modal-background {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.confirmation-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: white;
+  max-width: 437px;
+  margin: auto;
+  border-radius: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  padding: 1.6rem;
+  min-width: 250px;
+}
+
+.confirmation-modal .modal-title {
+  font-size: 35px;
+  margin-bottom: 1.5rem;
+}
+
+.confirmation-modal .modal-description {
+  color: #9F9F9F;
+  margin-bottom: 2rem;
+  width: 80%;
+}
+
+.confirmation-modal .modal-btn-section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  gap: 40px;
+  margin-top: 1rem;
+}
+
+@media (max-width: 500px) {
+  .confirmation-modal .modal-btn-section {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.confirmation-modal .modal-btn-section button {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 12px 34px;
+  border-radius: 0.5rem;
+  border: none;
+  -webkit-box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.25);
+}
+
+.confirmation-modal .modal-btn-section .danger {
+  background-color: #DE4040;
+  color: white;
+}
+
+.confirmation-modal .modal-btn-section .info {
+  background-color: white;
+  color: #2249F5;
+}
+
+.confirmation-modal .modal-btn-section .success {
+  background-color: #53A158;
+  color: white;
 }
 /*# sourceMappingURL=styles.css.map */
