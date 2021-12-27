@@ -20,6 +20,7 @@
   border-radius: 8px;
   padding: 0 1rem;
   margin: 0 auto;
+  z-index: 100;
 }
 
 .modal .modal-content {

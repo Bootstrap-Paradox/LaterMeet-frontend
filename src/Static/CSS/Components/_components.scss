@@ -163,6 +163,12 @@
         align-items: center;
         padding: 0 1rem;
 
+        .display-tile-title{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
         &>*{
             font-size: 1rem;
             font-weight: bold;
@@ -225,9 +231,22 @@
             justify-content: center;
             font-size: 1rem;
             font-weight: 600;
+
+        }
+        .box-tile-block{
+            @extend .box-tile;
+            justify-content: space-between;
+            
+            &>*{
+                margin: auto 1rem;
+            }
         }
 
     }
+}
+
+.placeholder{
+    color: #9A9498;
 }
 
 .box{
@@ -251,7 +270,9 @@
     padding: 0 1rem;
     margin: 0;
     margin-bottom: 1rem;
-
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 .faded{
