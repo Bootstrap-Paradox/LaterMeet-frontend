@@ -1,3 +1,3 @@
 # LaterMeet
 
-Platform to Showcase Recorded Meetings Live
+Platform displays recorded videos as if it were being live streamed
